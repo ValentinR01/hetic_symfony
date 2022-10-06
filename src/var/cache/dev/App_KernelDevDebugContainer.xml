@@ -269,6 +269,10 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Repository\DealsEntityRepository" class="App\Repository\DealsEntityRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="response_listener" class="Symfony\Component\HttpKernel\EventListener\ResponseListener">
       <tag name="kernel.event_subscriber"/>
@@ -1960,6 +1964,7 @@
         <argument key="user">root</argument>
         <argument key="password">null</argument>
         <argument key="driverOptions" type="collection"/>
+        <argument key="serverVersion">mariadb-10.8.2</argument>
         <argument key="defaultTableOptions" type="collection"/>
       </argument>
       <argument type="service" id="doctrine.dbal.default_connection.configuration"/>
@@ -2012,7 +2017,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.Xbsa8iG"/>
+      <argument type="service" id=".service_locator.z0q1hgk"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -3139,6 +3144,8 @@
         <argument>Start a log server that displays logs in real time</argument>
       </call>
     </service>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DealsEntityRepository" class="App\Repository\DealsEntityRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\DealsEntityRepository" class="App\Repository\DealsEntityRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.gSv9zYw" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -3553,9 +3560,11 @@
         <argument key="doctrine.orm.listeners.doctrine_token_provider_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.doctrine_token_provider_schema_subscriber"/>
       </argument>
     </service>
-    <service id=".service_locator.Xbsa8iG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.z0q1hgk" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="App\Repository\DealsEntityRepository" type="service_closure" id="App\Repository\DealsEntityRepository"/>
+      </argument>
     </service>
     <service id=".service_locator.KLVvNIq" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -3753,6 +3762,10 @@
       <argument type="collection">
         <argument key="reverse_container" type="service_closure" id="reverse_container" on-invalid="ignore_uninitialized"/>
       </argument>
+    </service>
+    <service id=".service_locator.Xbsa8iG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
     </service>
     <service id=".service_locator.yKHwqJO" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
