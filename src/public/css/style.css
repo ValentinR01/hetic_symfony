@@ -46,12 +46,16 @@ table {
 
 /* Global */
 
-a, p{
+a, p, span{
     font-family: 'Montserrat', sans-serif;
 }
 
 h1, h2{
     font-family: 'Amiko', sans-serif;
+}
+
+a{
+    text-decoration: none;
 }
 
 /* Header */
@@ -63,7 +67,21 @@ header{
 header div:nth-child(2){
     display: flex;
     justify-content: center;
-    border: black 1px solid;
+    border-top: black 1px solid;
+    border-bottom: black 1px solid;
+    padding: 20px;
+    margin-top: 50px;
+    column-gap: 50px;
+    font-size: 20px;
+}
+
+header div:nth-child(2) span:not(:first-child):before{
+    /*content: "•";*/
+    content: url("../images/circle_header.svg");
+    height: 12px;
+    width: 12px;
+    margin-right: 50px;
+;
 }
 
 /* Footer */
@@ -72,9 +90,14 @@ footer{
     background-color: black;
     color: white;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 50px;
 }
 
 footer a{
     color: white;
+}
+
+footer div span:first-child {
+    font-weight: 900;
 }
