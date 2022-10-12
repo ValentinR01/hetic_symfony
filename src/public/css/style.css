@@ -46,7 +46,7 @@ table {
 
 /* Global */
 
-a, p, span{
+a, p, span, li{
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -156,9 +156,14 @@ footer{
 footer a{
     color: white;
 }
+footer ul li {
+    margin-bottom: 5px;
+    font-size: 16px;
+}
 
-footer div span:first-child {
+footer ul li:first-child {
     font-weight: 900;
+    margin-bottom: 10px;
 }
 
 @media screen and (max-width: 640px) {
