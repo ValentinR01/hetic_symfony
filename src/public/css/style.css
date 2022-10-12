@@ -59,6 +59,10 @@ a{
     color: black;
 }
 
+section{
+    margin: 0 15%;
+}
+
 .btn{
     border: 1px black solid;
     border-radius: 20px;

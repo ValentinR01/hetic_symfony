@@ -1,28 +1,37 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/homepage.css">
+    <link rel="stylesheet" href="css/style.css">
+{% endblock %}
+
 {% block body %}
-    <h1>Homepage</h1>
-    <section>
+    <section id="homepage">
         <div class="searchbar">
             <input type="text" placeholder="Rechercher">
+            <a href="#">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23.4359 22.82L15.7919 15.176C17.2759 13.552 18.172 11.4241 18.172 9.072C18.172 4.06 14.0839 7.0945e-09 9.1 7.0945e-09C4.116 -0.000195293 0 4.03185 0 9.044C0 14.056 4.0881 18.116 9.072 18.116C11.424 18.116 13.58 17.2199 15.204 15.7359L22.848 23.3799L23.4359 22.82ZM0.8399 9.044C0.8399 4.50805 4.536 0.812 9.0719 0.812C13.6078 0.812 17.3039 4.5081 17.3039 9.044C17.3037 13.58 13.6078 17.304 9.0719 17.304C4.53595 17.304 0.8399 13.6079 0.8399 9.044Z" fill="black"/>
+                </svg>
+            </a>
         </div>
 
-        <div>
+        <div id="categoriesProducts">
             <div>
-                <img src="https://via.placeholder.com/400" alt="image couverture meubles">
-                <span>Meubles</span>
+                <img src="https://via.placeholder.com/420x600" alt="image couverture meubles">
+                <p>Meubles</p>
             </div>
             <div>
-                <img src="https://via.placeholder.com/400" alt="image couverture vaiselle">
-                <span>Vaiselle</span>
+                <img src="https://via.placeholder.com/420x290" alt="image couverture vaiselle">
+                <p>Vaiselle</p>
             </div>
             <div>
-                <img src="https://via.placeholder.com/200" alt="image couverture lumière">
-                <span>Lumière</span>
+                <img src="https://via.placeholder.com/200x290" alt="image couverture lumière">
+                <p>Lumière</p>
             </div>
             <div>
-                <img src="https://via.placeholder.com/200" alt="image couverture livres">
-                <span>Livres</span>
+                <img src="https://via.placeholder.com/200x290" alt="image couverture livres">
+                <p>Livres</p>
             </div>
         </div>
 
@@ -39,7 +48,7 @@
             <h2>Nos meilleurs vendeurs</h2>
 
             <div>
-                <img src="https://via.placeholder.com/50" alt="image profil vendeur">
+                <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                 <span>doriane_68</span>
                 <span>90% de recommendations</span>
             </div>
@@ -52,19 +61,19 @@
                 </svg>
 
                 <div>
-                    <img src="https://via.placeholder.com/150" alt="image produit">
+                    <img src="https://via.placeholder.com/250x290" alt="image produit">
                     <p>Nom de l'article</p>
                     <p>50€</p>
                 </div>
 
                 <div>
-                    <img src="https://via.placeholder.com/150" alt="image produit">
+                    <img src="https://via.placeholder.com/250x290" alt="image produit">
                     <p>Nom de l'article</p>
                     <p>50€</p>
                 </div>
-                
+
                 <div>
-                    <img src="https://via.placeholder.com/150" alt="image produit">
+                    <img src="https://via.placeholder.com/250x290" alt="image produit">
                     <p>Nom de l'article</p>
                     <p>50€</p>
                 </div>
