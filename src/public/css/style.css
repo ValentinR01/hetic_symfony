@@ -56,12 +56,43 @@ h1, h2{
 
 a{
     text-decoration: none;
+    color: black;
+}
+
+.btn{
+    border: 1px black solid;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 18px;
+}
+
+.btn--primary{
+    background-color: black;
+    color: white;
 }
 
 /* Header */
 
 header{
     margin: 50px 0;
+}
+
+#logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header nav{
+    position: absolute;
+    top: 60px;
+    right: 5%;
+}
+
+header nav ul{
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
 }
 
 header div:nth-child(2){
@@ -72,16 +103,44 @@ header div:nth-child(2){
     padding: 20px;
     margin-top: 50px;
     column-gap: 50px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 header div:nth-child(2) span:not(:first-child):before{
-    /*content: "•";*/
     content: url("../images/circle_header.svg");
-    height: 12px;
-    width: 12px;
+    height: 10px;
+    width: 10px;
     margin-right: 50px;
-;
+}
+
+@media screen and (max-width: 800px) {
+    #logo {
+        width: 180px ;
+    }
+
+    header .btn{
+        display: none;
+    }
+
+    header nav{
+        top: 60px;
+    }
+
+    header div:nth-child(2){
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    header div:nth-child(2) span:not(:first-child){
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    header div:nth-child(2) span:nth-child(2){
+        display: none;
+    }
 }
 
 /* Footer */
@@ -100,4 +159,13 @@ footer a{
 
 footer div span:first-child {
     font-weight: 900;
+}
+
+@media screen and (max-width: 640px) {
+    footer {
+        flex-wrap: wrap;
+        row-gap: 40px;
+        justify-content: space-between;
+        padding: 50px 30px;
+    }
 }
