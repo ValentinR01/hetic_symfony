@@ -48,6 +48,7 @@ table {
 
 a, p, span, li{
     font-family: 'Montserrat', sans-serif;
+    line-height: 21px;
 }
 
 h1, h2{
@@ -57,6 +58,10 @@ h1, h2{
 a{
     text-decoration: none;
     color: black;
+}
+
+h2{
+    font-size: 30px;
 }
 
 section{
