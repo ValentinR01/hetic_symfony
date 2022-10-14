@@ -46,7 +46,7 @@ table {
 
 /* Global */
 
-a, p, span, li{
+a, p, span, li, label{
     font-family: 'Montserrat', sans-serif;
     line-height: 21px;
 }

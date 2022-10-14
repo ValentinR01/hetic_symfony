@@ -1,0 +1,17 @@
+/* Personal Infos */
+
+#personalInfos img{
+    border-radius: 100px;
+}
+
+/* Personal Products */
+
+#personalProducts{
+    margin: 80px 0;
+}
+
+/* Other sellers */
+
+.carouselSellers{
+    display: flex;
+}
