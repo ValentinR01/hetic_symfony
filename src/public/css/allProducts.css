@@ -1,0 +1,16 @@
+#productsGallery{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 30px;
+}
+
+.productsGallery__single p:nth-child(2){
+    margin: 5px 0;
+}
+
+.productsGallery__single p:nth-child(3){
+    font-weight: 500;
+}
+
+/* rajouter la pagination */
