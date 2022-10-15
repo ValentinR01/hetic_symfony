@@ -26,6 +26,16 @@ services:
         networks:
             - acpSymfony
 
+    dbadmin:
+        image: phpmyadmin:5.2
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            - PMA_ARBITRARY=1
+        networks:
+            - acpSymfony
+
 volumes:
     db-data:
 
