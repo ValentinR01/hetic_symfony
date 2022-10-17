@@ -2,3 +2,4 @@
 .DS_Store
 src/.DS_Store
 src/vendor/.DS_Storesudo apt install symfony-cli
+src/var/cache
