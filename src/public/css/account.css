@@ -10,8 +10,41 @@
     margin: 80px 0;
 }
 
+#personalProducts .btn{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
 /* Other sellers */
 
 .carouselSellers{
     display: flex;
+    align-items: center;
+}
+
+.carouselSellers .sellerInfos{
+    margin-left: 20px;
+}
+
+.carouselSellers svg{
+    height: 25px;
+}
+
+.carouselSellers__card{
+    width: 45%;
+    position: relative;
+}
+
+.carouselSellers__card svg{
+    position: absolute;
+    top: 15px;
+}
+
+.carouselSellers__card svg:first-of-type{
+    right: 20px;
+}
+
+.carouselSellers__card svg:last-of-type{
+    right: 45px;
 }

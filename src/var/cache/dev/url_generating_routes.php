@@ -16,4 +16,10 @@ return [
     '_profiler_router' => [['token'], ['_controller' => 'web_profiler.controller.router::panelAction'], [], [['text', '/router'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
+    'index' => [[], ['_controller' => 'App\\Controller\\testController::index'], [], [['text', '/']], [], [], []],
+    'account' => [[], ['_controller' => 'App\\Controller\\testController::account'], [], [['text', '/account']], [], [], []],
+    'createAccount' => [[], ['_controller' => 'App\\Controller\\testController::createAccount'], [], [['text', '/create-account']], [], [], []],
+    'product' => [[], ['_controller' => 'App\\Controller\\testController::product'], [], [['text', '/product']], [], [], []],
+    'createProduct' => [[], ['_controller' => 'App\\Controller\\testController::createProduct'], [], [['text', '/create-product']], [], [], []],
+    'allProducts' => [[], ['_controller' => 'App\\Controller\\testController::allProducts'], [], [['text', '/all-products']], [], [], []],
 ];

@@ -14,6 +14,12 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/' => [[['_route' => 'index', '_controller' => 'App\\Controller\\testController::index'], null, null, null, false, false, null]],
+        '/account' => [[['_route' => 'account', '_controller' => 'App\\Controller\\testController::account'], null, null, null, false, false, null]],
+        '/create-account' => [[['_route' => 'createAccount', '_controller' => 'App\\Controller\\testController::createAccount'], null, null, null, false, false, null]],
+        '/product' => [[['_route' => 'product', '_controller' => 'App\\Controller\\testController::product'], null, null, null, false, false, null]],
+        '/create-product' => [[['_route' => 'createProduct', '_controller' => 'App\\Controller\\testController::createProduct'], null, null, null, false, false, null]],
+        '/all-products' => [[['_route' => 'allProducts', '_controller' => 'App\\Controller\\testController::allProducts'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

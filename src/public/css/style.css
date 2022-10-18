@@ -74,14 +74,20 @@ section{
 
 .btn{
     border: 1px black solid;
+    width: max-content;
     border-radius: 20px;
     padding: 8px 18px;
     font-size: 18px;
+    display: block;
 }
 
 .btn--primary{
     background-color: black;
     color: white;
+}
+
+section .btn{
+    margin-top: 10px;
 }
 
 /* Header */
