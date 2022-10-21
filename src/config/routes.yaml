@@ -1,3 +1,29 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+index:
+    path: /
+    controller: App\Controller\testController::index
+
+account:
+  path: /account
+  controller: App\Controller\testController::account
+
+createAccount:
+  path: /create-account
+  controller: App\Controller\testController::createAccount
+
+product:
+  path: /product
+  controller: App\Controller\testController::product
+
+createProduct:
+  path: /create-product
+  controller: App\Controller\testController::createProduct
+
+allProducts:
+  path: /all-products
+  controller: App\Controller\testController::allProducts
+
+
