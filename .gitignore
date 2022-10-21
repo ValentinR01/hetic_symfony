@@ -1,5 +1,5 @@
 .idea
 .DS_Store
 src/.DS_Store
-src/var/
+src/var/*
 src/vendor/.DS_Storesudo apt install symfony-cli
