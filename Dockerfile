@@ -10,6 +10,9 @@ RUN docker-php-ext-configure intl
 RUN docker-php-ext-install pdo pdo_mysql opcache intl zip calendar dom mbstring gd xsl
 RUN pecl install apcu && docker-php-ext-enable apcu
 
-WORKDIR /var/www
 
-CMD nginx && php-fpm
+WORKDIR /var/www/html
+
+ENTRYPOINT [ "bash", "init.sh" ]
+
+
