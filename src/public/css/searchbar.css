@@ -1,0 +1,23 @@
+#homepage input, #allProducts input{
+    display: block;
+    width: 40%;
+    border: 1px solid #5C5A5A;
+    border-radius: 30px;
+    padding: 10px 25px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    outline: none;
+}
+
+.searchbar{
+    position: relative;
+}
+
+.searchbar svg{
+    position: absolute;
+    top: 10px;
+    right: 30%;
+}
