@@ -12,18 +12,18 @@ account:
 
 createAccount:
   path: /create-account
-  controller: App\Controller\testController::createAccount
+  controller: App\Controller\testController::new
 
 product:
   path: /product
-  controller: App\Controller\testController::product
+  controller: App\Controller\dealController::product
 
 createProduct:
   path: /create-product
-  controller: App\Controller\testController::createProduct
+  controller: App\Controller\dealController::new
 
 allProducts:
   path: /all-products
-  controller: App\Controller\testController::allProducts
+  controller: App\Controller\dealController::allProducts
 
 
