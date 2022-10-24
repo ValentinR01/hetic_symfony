@@ -14,7 +14,7 @@ class DealController extends AbstractController
 {
 
     /**
-     * @Route("/", name="")
+     * @Route("/create-product", name="")
      * @return Response
      */
 

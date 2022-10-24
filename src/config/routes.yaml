@@ -2,9 +2,9 @@ controllers:
     resource: ../src/Controller/
     type: attribute
 
-index:
-    path: /
-    controller: App\Controller\testController::index
+#index:
+#    path: /
+#    controller: App\Controller\testController::index
 
 #account:
 #  path: /account
