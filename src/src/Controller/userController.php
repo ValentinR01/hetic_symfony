@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class userController extends AbstractController
 {
-
     /**
      * @return Response
      * @Route("/account/{pseudo}", name="app_user_show")
@@ -33,7 +32,6 @@ class userController extends AbstractController
     {
         return $this->render('createAccount.html.twig');
     }
-
 }
 
 //    return $this ->createQueryBuilder("u")
