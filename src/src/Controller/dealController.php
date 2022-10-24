@@ -42,12 +42,13 @@ class dealController extends AbstractController
      * @Route("/product/{id}", name="product_show")
      * @return Response
      */
-    public function show(DealRepository $repository, int $id): Response{
+    public function show(DealRepository $repository, int $id): Response
+    {
         $deal = $repository->find($id);
 
         if (!$deal) {
             throw $this->createNotFoundException(
-                'No product found for id '.$id
+                'No product found for id ' . $id
             );
         }
 
@@ -60,9 +61,10 @@ class dealController extends AbstractController
      * @Route("/all-products", name="all-products")
      * @return Response
      */
-    public function allProducts(DealRepository $repository): Response{
+    public function allProducts(DealRepository $repository): Response
+    {
         $deals = $repository->findAll();
-        return $this->render('allProducts.html.twig',[
+        return $this->render('allProducts.html.twig', [
             'deals' => $deals
         ]);
     }
