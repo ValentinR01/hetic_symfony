@@ -20,60 +20,13 @@
 
         <h1> Tous les articles </h1>
         <div id="productsGallery">
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
-            <div class="productsGallery__single">
-                <img src="https://via.placeholder.com/250x290" alt="image produit">
-                <p>Nom de l'article</p>
-                <p>50€</p>
-            </div>
-
+            {% for deal in deals  %}
+                <div class="productsGallery__single">
+                    <a href="/product/{{ deal.id }}"><img src="https://via.placeholder.com/250x290" alt="image produit"></a>
+                    <a href="/product/{{ deal.id }}"><p>{{ deal.title }}</p></a>
+                    <p>{{ deal.price }}€</p>
+                </div>
+            {% endfor %}
         </div>
 
         <!-- mettre à jour la pagination

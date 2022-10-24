@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\CreateAccountType;
+use App\Repository\UserRepository;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,13 +15,18 @@ class userController extends AbstractController
 
     /**
      * @return Response
+     * @Route("/account/{pseudo}", name="app_user_show")
      */
-    public function account(): Response
+    public function account(UserRepository $repository): Response
     {
-        return $this->render('account.html.twig');
+        $infos = $repository->find(id:1);
+        return $this->render('account.html.twig', [
+            'infos' => $infos
+        ]);
     }
 
     /**
+     * @Route("/create-account", name="app_create_account")
      * @return Response
      */
     public function new(): Response
@@ -27,3 +35,10 @@ class userController extends AbstractController
     }
 
 }
+
+//    return $this ->createQueryBuilder("u")
+//        ->innerJoin("u.sales", "s")
+//        ->innerJoin()
+//        ->addSelect()
+//        ->addSelect()
+//
