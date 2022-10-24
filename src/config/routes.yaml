@@ -8,11 +8,11 @@ index:
 
 account:
   path: /account
-  controller: App\Controller\testController::account
+  controller: App\Controller\userController::account
 
 createAccount:
   path: /create-account
-  controller: App\Controller\testController::new
+  controller: App\Controller\userController::new
 
 product:
   path: /product
