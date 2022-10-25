@@ -55,6 +55,11 @@ class User
         $this->Purchases = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string) $this->getUser();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
