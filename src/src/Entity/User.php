@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,10 +23,10 @@ class User
     private ?string $Email = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $Nb_user_likes = null;
+    private ?int $Nb_user_likes = 0;
 
     #[ORM\Column(nullable: true)]
-    private ?int $Nb_user_dislikes = null;
+    private ?int $Nb_user_dislikes = 0;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Photo = null;
@@ -33,13 +35,25 @@ class User
     private ?string $Password = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $ID_user_rights = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $Bought_other_users_pseudo = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $Bought_other_users_id = null;
+
+    #[ORM\OneToMany(mappedBy: 'Seller', targetEntity: Deal::class)]
+    private Collection $Deals;
+
+    #[ORM\OneToMany(mappedBy: 'Buyer', targetEntity: Deal::class)]
+    private Collection $Purchases;
+
+    #[ORM\Column(type: Types::JSON)]
+    private array $Roles = [];
+
+    public function __construct()
+    {
+        $this->Deals = new ArrayCollection();
+        $this->Purchases = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -118,18 +132,6 @@ class User
         return $this;
     }
 
-    public function getIDUserRights(): ?string
-    {
-        return $this->ID_user_rights;
-    }
-
-    public function setIDUserRights(?string $ID_user_rights): self
-    {
-        $this->ID_user_rights = $ID_user_rights;
-
-        return $this;
-    }
-
     public function getBoughtOtherUsersPseudo(): ?string
     {
         return $this->Bought_other_users_pseudo;
@@ -150,6 +152,78 @@ class User
     public function setBoughtOtherUsersId(?string $Bought_other_users_id): self
     {
         $this->Bought_other_users_id = $Bought_other_users_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Deal>
+     */
+    public function getDeals(): Collection
+    {
+        return $this->Deals;
+    }
+
+    public function addDeal(Deal $deal): self
+    {
+        if (!$this->Deals->contains($deal)) {
+            $this->Deals->add($deal);
+            $deal->setSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeal(Deal $deal): self
+    {
+        if ($this->Deals->removeElement($deal)) {
+            // set the owning side to null (unless already changed)
+            if ($deal->getSeller() === $this) {
+                $deal->setSeller(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Deal>
+     */
+    public function getPurchases(): Collection
+    {
+        return $this->Purchases;
+    }
+
+    public function addPurchase(Deal $purchase): self
+    {
+        if (!$this->Purchases->contains($purchase)) {
+            $this->Purchases->add($purchase);
+            $purchase->setBuyer($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Deal $purchase): self
+    {
+        if ($this->Purchases->removeElement($purchase)) {
+            // set the owning side to null (unless already changed)
+            if ($purchase->getBuyer() === $this) {
+                $purchase->setBuyer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->Roles;
+    }
+
+    public function setRoles(array $Roles): self
+    {
+        $this->Roles = $Roles;
 
         return $this;
     }

@@ -17,17 +17,18 @@ class Comment
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $Date_creation = null;
 
-    #[ORM\Column]
-    private ?int $Deal_id = null;
-
-    #[ORM\Column]
-    private ?int $User_id = null;
-
     #[ORM\Column(nullable: true)]
     private ?int $Parent_id = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Content = null;
+
+    #[ORM\ManyToOne]
+    private ?Deal $Deal = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $User = null;
 
     public function getId(): ?int
     {
@@ -42,30 +43,6 @@ class Comment
     public function setDateCreation(\DateTimeInterface $Date_creation): self
     {
         $this->Date_creation = $Date_creation;
-
-        return $this;
-    }
-
-    public function getDealId(): ?int
-    {
-        return $this->Deal_id;
-    }
-
-    public function setDealId(int $Deal_id): self
-    {
-        $this->Deal_id = $Deal_id;
-
-        return $this;
-    }
-
-    public function getUserId(): ?int
-    {
-        return $this->User_id;
-    }
-
-    public function setUserId(int $User_id): self
-    {
-        $this->User_id = $User_id;
 
         return $this;
     }
@@ -90,6 +67,30 @@ class Comment
     public function setContent(string $Content): self
     {
         $this->Content = $Content;
+
+        return $this;
+    }
+
+    public function getDeal(): ?Deal
+    {
+        return $this->Deal;
+    }
+
+    public function setDeal(?Deal $Deal): self
+    {
+        $this->Deal = $Deal;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
 
         return $this;
     }
