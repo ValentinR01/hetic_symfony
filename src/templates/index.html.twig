@@ -38,7 +38,7 @@
                 Acheter Neverend c’est s’engager à limiter sa consommation de matière première et son nombre de déchets pour donner du sens à ses actions.
                 Les prix affichés sont fixés par les vendeurs et nous opérons en tant qu’intermédiaire et tiers de confiance pour garantir la qualité des produits.
             </p>
-            <a href="/all-products" class="btn btn--primary">Toutes les annonces</a>
+            <a href="{{ path('app_all_deals') }}" class="btn btn--primary">Toutes les annonces</a>
         </div>
 
         <div>
@@ -58,7 +58,7 @@
                 </svg>
 
                 <div>
-                    <a href="/product">
+                    <a href="{{ path('app_deal_show', {id: 1} ) }}">
                         <img src="https://via.placeholder.com/230x290" alt="image produit">
                     </a>
                     <p>Nom de l'article</p>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div>
-                    <a href="/product">
+                    <a href="{{ path('app_deal_show', {id: 2} ) }}">
                         <img src="https://via.placeholder.com/230x290" alt="image produit">
                     </a>
                     <p>Nom de l'article</p>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div>
-                    <a href="/product">
+                    <a href="{{ path('app_deal_show', {id: 3} ) }}">
                         <img src="https://via.placeholder.com/230x290" alt="image produit">
                     </a>
                     <p>Nom de l'article</p>

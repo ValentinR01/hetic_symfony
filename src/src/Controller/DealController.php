@@ -14,7 +14,7 @@ class DealController extends AbstractController
 {
 
     /**
-     * @Route("/create-product", name="")
+     * @Route("/nouvelle-annonce", name="app_create_deal")
      * @return Response
      */
 
@@ -39,7 +39,7 @@ class DealController extends AbstractController
 
 
     /**
-     * @Route("/product/{id}", name="product_show")
+     * @Route("/annonce/{id}", name="app_deal_show")
      * @return Response
      */
     public function show(DealRepository $repository, int $id): Response
@@ -58,7 +58,7 @@ class DealController extends AbstractController
     }
 
     /**
-     * @Route("/all-products", name="all-products")
+     * @Route("/annonces", name="app_all_deals")
      * @return Response
      */
     public function allProducts(DealRepository $repository): Response

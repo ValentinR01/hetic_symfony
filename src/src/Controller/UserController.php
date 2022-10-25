@@ -14,7 +14,7 @@ class UserController extends AbstractController
 {
     /**
      * @return Response
-     * @Route("/account/{pseudo}", name="app_user_show")
+     * @Route("/compte/{pseudo}", name="app_user_show")
      */
     public function account(UserRepository $repository, string $pseudo): Response
     {
@@ -32,7 +32,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/create-account", name="app_create_account")
+     * @Route("/creation-compte", name="app_create_account")
      * @return Response
      */
     public function new(): Response
