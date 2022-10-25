@@ -46,9 +46,6 @@ class User
     #[ORM\OneToMany(mappedBy: 'Buyer', targetEntity: Deal::class)]
     private Collection $Purchases;
 
-    #[ORM\Column(type: Types::JSON)]
-    private array $Roles = [];
-
     public function __construct()
     {
         $this->Deals = new ArrayCollection();
@@ -57,7 +54,7 @@ class User
 
     public function __toString()
     {
-        return (string) $this->getUser();
+        return (string) $this->getPseudo();
     }
 
     public function getId(): ?int
@@ -217,18 +214,6 @@ class User
                 $purchase->setBuyer(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getRoles(): array
-    {
-        return $this->Roles;
-    }
-
-    public function setRoles(array $Roles): self
-    {
-        $this->Roles = $Roles;
 
         return $this;
     }

@@ -22,8 +22,8 @@
         <div id="productsGallery">
             {% for deal in deals  %}
                 <div class="productsGallery__single">
-                    <a href="{{ path('app_deal_show', { id: 1 }) }}"><img src="https://via.placeholder.com/250x290" alt="image produit"></a>
-                    <a href="{{ path('app_deal_show', { id: 1 }) }}"><p>{{ deal.title }}</p></a>
+                    <a href="{{ path('app_deal_show', { id: deal.id }) }}"><img src="https://via.placeholder.com/250x290" alt="image produit"></a>
+                    <a href="{{ path('app_deal_show', { id: deal.id }) }}"><p>{{ deal.title }}</p></a>
                     <p>{{ deal.price }}€</p>
                 </div>
             {% endfor %}

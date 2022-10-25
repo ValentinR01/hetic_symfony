@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Deal;
 use App\Form\DealFormType;
 use App\Form\CreateAccountType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,14 +50,13 @@ class DealController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/annonce/{id}", name="app_deal_show")
      * @return Response
      */
-    public function show(DealRepository $repository, int $id): Response
+    public function show(Deal $deal, int $id): Response
     {
-        $deal = $repository->find($id);
+        #$deal = $repository->find($id);
 
         if (!$deal) {
             throw $this->createNotFoundException(
