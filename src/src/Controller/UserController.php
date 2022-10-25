@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\CreateAccountType;
+use App\Repository\DealRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,11 @@ class UserController extends AbstractController
      * @return Response
      * @Route("/compte/{pseudo}", name="app_user_show")
      */
-    public function account(UserRepository $repository, string $pseudo): Response
+    #public function account(User $user, DealRepository $dealRepo, string $pseudo): Response
+    public function account(UserRepository $repository, DealRepository $dealRepo, string $pseudo): Response
     {
         $user = $repository->findOneBy(['Pseudo' => $pseudo]);
+        $deals = $dealRepo->findDealBySeller($user);
 
         if (!$user) {
             throw $this->createNotFoundException(
@@ -27,7 +30,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('account.html.twig', [
-            'user' => $user
+            'user' => $user, 'deals' => $deals
         ]);
     }
 
