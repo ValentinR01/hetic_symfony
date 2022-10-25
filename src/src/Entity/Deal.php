@@ -23,9 +23,6 @@ class Deal
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Description = null;
 
-    #[ORM\Column]
-    private ?int $Product_state_id = null;
-
     #[ORM\Column(length: 255)]
     private ?string $Photo = null;
 
@@ -39,15 +36,6 @@ class Deal
     private ?\DateTimeInterface $Date_update = null;
 
     #[ORM\Column]
-    private ?int $Id_category = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $Seller = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Buyer = null;
-
-    #[ORM\Column]
     private ?bool $Is_sold = null;
 
     #[ORM\Column]
@@ -55,6 +43,21 @@ class Deal
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $Date_purchase = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Deals')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $Seller = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Purchases')]
+    private ?User $Buyer = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $Category = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?State $Product_state = null;
 
     public function getId(): ?int
     {
@@ -93,18 +96,6 @@ class Deal
     public function setDescription(string $Description): self
     {
         $this->Description = $Description;
-
-        return $this;
-    }
-
-    public function getProductStateId(): ?int
-    {
-        return $this->Product_state_id;
-    }
-
-    public function setProductStateId(int $Product_state_id): self
-    {
-        $this->Product_state_id = $Product_state_id;
 
         return $this;
     }
@@ -157,42 +148,6 @@ class Deal
         return $this;
     }
 
-    public function getIdCategory(): ?int
-    {
-        return $this->Id_category;
-    }
-
-    public function setIdCategory(int $Id_category): self
-    {
-        $this->Id_category = $Id_category;
-
-        return $this;
-    }
-
-    public function getSeller(): ?string
-    {
-        return $this->Seller;
-    }
-
-    public function setSeller(string $Seller): self
-    {
-        $this->Seller = $Seller;
-
-        return $this;
-    }
-
-    public function getBuyer(): ?string
-    {
-        return $this->Buyer;
-    }
-
-    public function setBuyer(?string $Buyer): self
-    {
-        $this->Buyer = $Buyer;
-
-        return $this;
-    }
-
     public function isIsSold(): ?bool
     {
         return $this->Is_sold;
@@ -225,6 +180,54 @@ class Deal
     public function setDatePurchase(?\DateTimeInterface $Date_purchase): self
     {
         $this->Date_purchase = $Date_purchase;
+
+        return $this;
+    }
+
+    public function getSeller(): ?User
+    {
+        return $this->Seller;
+    }
+
+    public function setSeller(?User $Seller): self
+    {
+        $this->Seller = $Seller;
+
+        return $this;
+    }
+
+    public function getBuyer(): ?User
+    {
+        return $this->Buyer;
+    }
+
+    public function setBuyer(?User $Buyer): self
+    {
+        $this->Buyer = $Buyer;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(?Category $Category): self
+    {
+        $this->Category = $Category;
+
+        return $this;
+    }
+
+    public function getProductState(): ?State
+    {
+        return $this->Product_state;
+    }
+
+    public function setProductState(?State $Product_state): self
+    {
+        $this->Product_state = $Product_state;
 
         return $this;
     }
