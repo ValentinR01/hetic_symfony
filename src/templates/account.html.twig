@@ -15,7 +15,7 @@
                 <img src="https://via.placeholder.com/200" alt="image profil vendeur">
                 <a href="">Changer l'image</a>
                 <label>Nom utilisateur</label>
-                <p>doriane_68</p>
+                <p>{{ user.pseudo }}</p>
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email">
                 <button type="submit" class="btn btn--primary">Valider</button>
@@ -58,7 +58,7 @@
                 </svg>
             </div>
 
-            <a href="/create-product" class="btn btn--primary">Ajouter une annonce</a>
+            <a href="{{ path('app_user_show') }}" class="btn btn--primary">Ajouter une annonce</a>
         </div>
 
         <div>
