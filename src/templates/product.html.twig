@@ -12,6 +12,8 @@
 
         <div id="productsInfos">
 
+            {% set pourcent = deal.seller.NbUserLikes/(deal.seller.NbUserDislikes + deal.seller.NbUserLikes) * 100 %}
+
             <div id="productsInfos__header">
                 <div>
                     <h1>{{ deal.title }}</h1>
@@ -20,7 +22,7 @@
                 <div class="sellerInfos">
                     <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                     <span>{{ deal.seller }}</span>
-                    <span>{{ deal.seller.email }}</span>
+                    <span>{{ pourcent|round }}% de recommendation</span>
                     <!--<span>98% de recommendation</span>-->
                 </div>
             </div>
