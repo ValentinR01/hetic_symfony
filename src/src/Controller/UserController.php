@@ -45,13 +45,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/account/{id}/vote", name="app_vote_sellers")
+     * @Route("/account/{id}/vote/{slug}", name="app_vote_sellers")
      * @return Response
      */
-    public function sellerVote(User $user, int $id, Request $request, EntityManagerInterface $entityManager): Response
+    public function sellerVote(User $user, int $id, string $slug, Request $request, EntityManagerInterface $entityManager): Response
     {
         $vote = $request->request->get('vote');
-        $dislikes = $user->getNbUserDislikes();
         if ($vote === 'like'){
             $user->voteLike();
         }
@@ -60,6 +59,8 @@ class UserController extends AbstractController
         }
 
         $entityManager->flush();
-        return $this->redirectToRoute('app_homepage');
+        return $this->redirectToRoute('app_user_show', [
+            'id'=>$id, 'pseudo'=>$slug
+        ]);
     }
 }
