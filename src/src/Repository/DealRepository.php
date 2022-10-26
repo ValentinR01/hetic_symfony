@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Deal;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,19 @@ class DealRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @return Deals[] Return an array of Product objects
+     */
+    public function findDealBySeller(User $value){
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.Seller = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.Date_creation', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

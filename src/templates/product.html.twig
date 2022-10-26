@@ -20,7 +20,8 @@
                 <div class="sellerInfos">
                     <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                     <span>{{ deal.seller }}</span>
-                    <span>98% de recommendation</span>
+                    <span>{{ deal.seller.email }}</span>
+                    <!--<span>98% de recommendation</span>-->
                     <!--<span> deal.user.email </span>-->
                 </div>
             </div>
@@ -32,7 +33,7 @@
             </div>
 
             <div class="productsInfos__bar">
-                <p>Etat : </p>
+                <p>Etat : {{ deal.ProductState }}</p>
                 <p>Date mise en ligne : {{ deal.DatePublication|date("d/m/Y") }}</p>
             </div>
 

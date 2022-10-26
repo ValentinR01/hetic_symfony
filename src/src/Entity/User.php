@@ -56,13 +56,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'Buyer', targetEntity: Deal::class)]
     private Collection $Purchases;
 
-    #[ORM\Column(type: Types::JSON)]
-    private array $Roles = [];
-
     public function __construct()
     {
         $this->Deals = new ArrayCollection();
         $this->Purchases = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getPseudo();
     }
 
     public function getId(): ?int

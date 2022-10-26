@@ -16,6 +16,11 @@ class State
     #[ORM\Column(length: 255)]
     private ?string $Label = null;
 
+    public function __toString()
+    {
+        return (string) $this->getLabel();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
