@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Deal;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -48,6 +49,24 @@ class DealRepository extends ServiceEntityRepository
             ->andWhere('p.Seller = :val')
             ->setParameter('val', $value)
             ->orderBy('p.Date_creation', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Recommendations[] Return an array of Product objects
+     */
+    public function findRecommendationsByDeal(int $id, Category $cat){
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.id != :id')
+            ->setParameter('id', $id)
+            ->andWhere('r.Category = :cat')
+            ->setParameter('cat', $cat)
+            ->andWhere('r.Is_published  = 1')
+            ->andWhere('r.Is_sold = 0')
+            ->orderBy('r.Date_publication', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();
