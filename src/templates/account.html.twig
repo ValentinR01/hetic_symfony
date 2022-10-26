@@ -66,12 +66,13 @@
                 </svg>
 
                 {% for seller in sellers %}
+                    {% set pourcent = seller.NbUserLikes/(seller.NbUserDislikes + seller.NbUserLikes) * 100 %}
 
                     <div class="carouselSellers__card">
                         <div class="sellerInfos">
                             <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                             <span>{{ seller.pseudo }}</span>
-                            <span>74% de recommendation</span>
+                            <span>{{ pourcent|round }}% de recommendation</span>
                         </div>
                         <svg width="25" height="29" viewBox="0 0 25 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M21.3336 25.9165C21.3336 25.595 21.2683 25.2912 21.1621 25.0049C22.7414 24.8653 23.9837 23.5563 23.9837 21.9415C23.9837 21.1272 23.6622 20.3923 23.1479 19.841C24.1638 19.3323 24.8668 18.2951 24.8668 17.0833C24.8668 15.8695 24.1638 14.8344 23.1479 14.3254C23.853 13.5712 24.1936 12.4704 23.8459 11.2956C23.4555 9.98125 22.1674 9.13325 20.7966 9.13325H14.2669L15.6608 6.34545C15.9065 5.85597 16.0337 5.31354 16.0337 4.76431V4.71639C16.0337 2.28377 14.069 0.312246 11.6399 0.299828C11.1451 0.296279 10.7337 0.690226 10.7337 1.18326V3.16902C10.7337 3.59639 10.5782 4.01164 10.2954 4.33139L5.07854 10.2956C4.74285 10.6789 4.25689 10.8999 3.74824 10.8999H0.133789V25.0335H3.75361C4.28184 25.0335 4.80831 25.1127 5.31196 25.2683L10.1225 27.0402C12.8645 28.049 15.7617 28.5666 18.6835 28.5666C20.1481 28.5666 21.3335 27.3794 21.3335 25.9166" fill="black"/>
