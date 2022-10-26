@@ -39,6 +39,18 @@ class UserRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Users[] Return an array of Product objects
+     */
+    public function findUserSellers(string $value){
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.Bought_other_users_pseudo LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->setMaxResults(2)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

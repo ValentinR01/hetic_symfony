@@ -17,11 +17,11 @@ class UserController extends AbstractController
      * @return Response
      * @Route("/compte/{pseudo}", name="app_user_show")
      */
-    #public function account(User $user, DealRepository $dealRepo, string $pseudo): Response
     public function account(UserRepository $repository, DealRepository $dealRepo, string $pseudo): Response
     {
         $user = $repository->findOneBy(['Pseudo' => $pseudo]);
         $deals = $dealRepo->findDealBySeller($user);
+        $sellers = $repository->findUserSellers($pseudo);
 
         if (!$user) {
             throw $this->createNotFoundException(
@@ -30,7 +30,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('account.html.twig', [
-            'user' => $user, 'deals' => $deals
+            'account' => $user, 'deals' => $deals, 'sellers' => $sellers
         ]);
     }
 
