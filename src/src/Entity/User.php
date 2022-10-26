@@ -254,4 +254,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->Email;
     }
+
+    public function voteLike(): self
+    {
+        $this->Nb_user_likes++;
+        return $this;
+    }
+
+    public function voteDislike(): self
+    {
+        $this->Nb_user_dislikes++;
+        return $this;
+    }
 }
