@@ -231,4 +231,8 @@ class Deal
 
         return $this;
     }
+    
+    public function __toString(): string {
+        return $this->Product_state;
+    }
 }
