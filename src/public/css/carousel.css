@@ -1,8 +1,8 @@
 .carousel{
     display: flex;
-    align-items: center;
     column-gap: 20px;
     margin-top: 20px;
+    align-items: center;
 }
 
 .carousel svg{
@@ -12,6 +12,12 @@
 .carousel div{
     position: relative;
     width: 230px;
+}
+
+.carousel div p:first-of-type{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .carousel__tag{

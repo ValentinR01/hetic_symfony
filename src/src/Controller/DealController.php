@@ -54,18 +54,13 @@ class DealController extends AbstractController
      * @Route("/annonce/{id}", name="app_deal_show")
      * @return Response
      */
-    public function show(Deal $deal, int $id): Response
+    public function show(Deal $deal, DealRepository $repository, int $id): Response
     {
-        #$deal = $repository->find($id);
-
-        if (!$deal) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
+        $cat = $deal->getCategory();
+        $recommendations = $repository->findRecommendationsByDeal($id, $cat);
 
         return $this->render('product.html.twig', [
-            'deal' => $deal
+            'deal' => $deal, 'recommendations' => $recommendations
         ]);
     }
 
