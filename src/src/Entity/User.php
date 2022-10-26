@@ -34,12 +34,6 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $Password = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $Bought_other_users_pseudo = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $Bought_other_users_id = null;
-
     #[ORM\OneToMany(mappedBy: 'Seller', targetEntity: Deal::class)]
     private Collection $Deals;
 
@@ -48,6 +42,9 @@ class User
 
     #[ORM\Column(type: Types::JSON)]
     private array $Roles = [];
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Sold_to = null;
 
     public function __construct()
     {
@@ -132,30 +129,6 @@ class User
         return $this;
     }
 
-    public function getBoughtOtherUsersPseudo(): ?string
-    {
-        return $this->Bought_other_users_pseudo;
-    }
-
-    public function setBoughtOtherUsersPseudo(?string $Bought_other_users_pseudo): self
-    {
-        $this->Bought_other_users_pseudo = $Bought_other_users_pseudo;
-
-        return $this;
-    }
-
-    public function getBoughtOtherUsersId(): ?string
-    {
-        return $this->Bought_other_users_id;
-    }
-
-    public function setBoughtOtherUsersId(?string $Bought_other_users_id): self
-    {
-        $this->Bought_other_users_id = $Bought_other_users_id;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Deal>
      */
@@ -224,6 +197,18 @@ class User
     public function setRoles(array $Roles): self
     {
         $this->Roles = $Roles;
+
+        return $this;
+    }
+
+    public function getSoldTo(): ?string
+    {
+        return $this->Sold_to;
+    }
+
+    public function setSoldTo(?string $Sold_to): self
+    {
+        $this->Sold_to = $Sold_to;
 
         return $this;
     }
