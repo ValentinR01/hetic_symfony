@@ -7,9 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity('Email', 'Cet email est déjà utilisé')]
+#[UniqueEntity('Pseudo', 'Ce pseudo est déjà utilisé')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,6 +27,9 @@ class User
     private ?string $Pseudo = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.',
+    )]
     private ?string $Email = null;
 
     #[ORM\Column(nullable: true)]
@@ -216,5 +226,32 @@ class User
         }
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->Roles;
+    }
+
+    public function setRoles(array $Roles): self
+    {
+        $this->Roles = $Roles;
+
+        return $this;
+    }
+
+    public function getSalt()
+    {
+        //
+    }
+
+    public function eraseCredentials()
+    {
+        //
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->Email;
     }
 }
