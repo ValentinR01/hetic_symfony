@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
         });
 
         CommentFactory::createMany(20);
-        // CommentFactory::new()->isChildren()->many(10)->create();
+        CommentFactory::new()->isChildren()->many(10)->create();
 
         $manager->flush();
     }
