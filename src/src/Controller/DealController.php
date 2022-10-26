@@ -6,7 +6,6 @@ use App\Entity\Deal;
 use App\Form\DealFormType;
 use App\Form\CreateAccountType;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Deal;
 use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
