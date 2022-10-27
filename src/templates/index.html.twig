@@ -20,14 +20,30 @@
         </div>
 
         <div id="catProducts">
-            <img id="catProducts__meublesImage" src="https://via.placeholder.com/410x670" alt="image couverture meubles">
-            <p id="catProducts__meublesTitle">Meubles</p>
-            <img id="catProducts__vaisselleImage" src="https://via.placeholder.com/430x300" alt="image couverture vaisselle">
-            <p id="catProducts__vaisselleTitle">Vaisselle</p>
-            <img id="catProducts__lumiereImage" src="https://via.placeholder.com/205x300" alt="image couverture lumière">
-            <p id="catProducts__lumiereTitle">Lumière</p>
-            <img id="catProducts__livresImage" src="https://via.placeholder.com/205x300" alt="image couverture livres">
-            <p id="catProducts__livresTitle">Livres</p>
+            <a href="{{ path('app_deals_by_cat', {cat: 1} ) }}" id="catProducts__meublesImage">
+                <img src="https://via.placeholder.com/410x670" alt="image couverture meubles">
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 1} ) }}" id="catProducts__meublesTitle">
+                <p>Meubles</p>
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 2} ) }}" id="catProducts__vaisselleImage">
+                <img src="https://via.placeholder.com/430x300" alt="image couverture vaisselle">
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 2} ) }}" id="catProducts__vaisselleTitle">
+                <p>Vaisselle</p>
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 3} ) }}" id="catProducts__lumiereImage">
+                <img src="https://via.placeholder.com/205x300" alt="image couverture lumière">
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 3} ) }}" id="catProducts__lumiereTitle">
+                <p>Lumière</p>
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 4} ) }}" id="catProducts__livresImage">
+                <img src="https://via.placeholder.com/205x300" alt="image couverture livres">
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 4} ) }}" id="catProducts__livresTitle">
+                <p>Livres</p>
+            </a>
         </div>
 
         <div id="homepage__concept">
