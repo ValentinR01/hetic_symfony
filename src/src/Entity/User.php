@@ -44,12 +44,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $Password = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $Bought_other_users_pseudo = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $Bought_other_users_id = null;
-
     #[ORM\OneToMany(mappedBy: 'Seller', targetEntity: Deal::class, cascade:['remove'])]
     private Collection $Deals;
 
