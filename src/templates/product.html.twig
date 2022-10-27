@@ -52,40 +52,59 @@
         <div id="comments">
 
             <h2> Commentaires</h2>
-            <p>Il n'y a pas encore de commentaires</p>
 
-            <div class="comments__conversation">
-                <div class="comments__message">
-                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                    <p>
-                        29/09/2022
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur.
-                    </p>
-                </div>
-            </div>
+            {% if comments %}
 
-            <div class="comments__conversation">
-                <div class="comments__message">
-                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                    <p>
-                        28/09/2022
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
+                {% for comment in comments %}
+
+                <div class="comments__conversation">
+                    {% set comParent = 1 %}
+                    <div class="comments__message">
+                        <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                        <p>
+                            {{ comment.DateCreation | date("d/m/Y")}}
+                            <br>
+                            {{ comment.Content }}
+                        </p>
+                    </div>
+
+                    {% if comment%}
+                        <div class="comments__message">
+                            <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                            <p>
+                                {{ comment.DateCreation | date("d/m/Y")}}
+                                <br>
+                                {{ comment.Content }}
+                            </p>
+                        </div>
+                    {% endif %}
                 </div>
 
-                <div class="comments__message">
-                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                    <p>
-                        28/09/2022
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
-                    </p>
-                </div>
-            </div>
+                <!--<div class="comments__conversation">
+                    <div class="comments__message">
+                        <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                        <p>
+                            28/09/2022
+                            <br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        </p>
+                    </div>
+
+                    <div class="comments__message">
+                        <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                        <p>
+                            28/09/2022
+                            <br>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua.
+                        </p>
+                    </div>
+                </div>-->
+                {% endfor %}
+            {% else %}
+                <p>Il n'y a pas encore de commentaire.</p>
+                <br>
+            {% endif %}
 
             {% if deal.isSold == 0 %}
                 <a href="#" class="btn btn--primary">Poser une question</a>
@@ -105,8 +124,12 @@
                 {% for recommendation in recommendations %}
 
                     <div>
-                        <img src="https://via.placeholder.com/230x290" alt="image produit">
-                        <p>{{ recommendation.title }}</p>
+                        <a href="{{ path('app_deal_show', {id: recommendation.id} ) }}">
+                            <img src="https://via.placeholder.com/230x290" alt="image produit">
+                        </a>
+                        <a href="{{ path('app_deal_show', {id: recommendation.id} ) }}">
+                            <p>{{ recommendation.title }}</p>
+                        </a>
                         <p>{{ recommendation.price }}€</p>
                     </div>
 

@@ -94,10 +94,10 @@ class DealController extends AbstractController
     {
         $cat = $deal->getCategory();
         $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
-        $comments = $commentRepository->findBy();
+        $comments = $commentRepository->findBy(['Deal' => $id]);
 
         return $this->render('product.html.twig', [
-            'deal' => $deal, 'recommendations' => $recommendations
+            'deal' => $deal, 'recommendations' => $recommendations, 'comments' => $comments
         ]);
     }
 
