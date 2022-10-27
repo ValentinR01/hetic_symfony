@@ -23,9 +23,6 @@ class Deal
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Photo = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $Date_creation = null;
 
@@ -57,7 +54,18 @@ class Deal
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+
     private ?State $Product_state = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $MainPhoto = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $Photo_2 = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $Photo_3 = null;
+
 
     public function getId(): ?int
     {
@@ -96,18 +104,6 @@ class Deal
     public function setDescription(string $Description): self
     {
         $this->Description = $Description;
-
-        return $this;
-    }
-
-    public function getPhoto(): ?string
-    {
-        return $this->Photo;
-    }
-
-    public function setPhoto(string $Photo): self
-    {
-        $this->Photo = $Photo;
 
         return $this;
     }
@@ -230,5 +226,47 @@ class Deal
         $this->Product_state = $Product_state;
 
         return $this;
+
+    }
+
+    public function getMainPhoto(): ?string
+    {
+        return $this->MainPhoto;
+    }
+
+    public function setMainPhoto(?string $MainPhoto): self
+    {
+        $this->MainPhoto = $MainPhoto;
+
+        return $this;
+    }
+
+    public function getPhoto2(): ?string
+    {
+        return $this->Photo_2;
+    }
+
+    public function setPhoto2(?string $Photo_2): self
+    {
+        $this->Photo_2 = $Photo_2;
+
+        return $this;
+    }
+
+    public function getPhoto3(): ?string
+    {
+        return $this->Photo_3;
+    }
+
+    public function setPhoto3(?string $Photo_3): self
+    {
+        $this->Photo_3 = $Photo_3;
+
+        return $this;
+    }
+    
+    public function __toString(): string {
+        return $this->Product_state;
+
     }
 }

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Deal;
 use App\Form\DealFormType;
 use App\Form\CreateAccountType;
+use App\Repository\CategoryRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +16,41 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DealController extends AbstractController
 {
+    #ToTEST!!!!!
+    /**
+     * @Route("/annonce/{id}/modifier", name="app_edit_deal")
+     * @return Response
+     */
+    public function edit(Deal $deal, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(DealFormType::class, $deal);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $deal = $form->getData();
+            $deal->setDateCreation(new \DateTime());
+            dd($form->getData());
+
+            # TO CHANGE !
+            #$deal->setPhoto($helper->uploadImg($form->getData('')));
+            $deal->setSeller(new User());
+            $deal->setIsSold(0);
+            $deal->setIsPublished(1);
+            $deal->setDatePublication(new \DateTime());
+
+
+
+            $entityManager->persist($deal);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('createProduct.html.twig', [
+            'dealForm' => $form->createView()
+        ]);
+
+
+    }
 
     /**
      * @Route("/nouvelle-annonce", name="app_create_deal")
@@ -53,18 +90,15 @@ class DealController extends AbstractController
      * @Route("/annonce/{id}", name="app_deal_show")
      * @return Response
      */
-    public function show(Deal $deal, int $id): Response
+    public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id): Response
     {
-        #$deal = $repository->find($id);
-
-        if (!$deal) {
-            throw $this->createNotFoundException(
-                'No product found for id ' . $id
-            );
-        }
+        $cat = $deal->getCategory();
+        $comments = $commentRepository->findParentComments($id);
+        $responses = $commentRepository->findChildComments($id);
+        $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
 
         return $this->render('product.html.twig', [
-            'deal' => $deal
+            'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations
         ]);
     }
 
@@ -75,6 +109,18 @@ class DealController extends AbstractController
     public function allProducts(DealRepository $repository): Response
     {
         $deals = $repository->findAll();
+        return $this->render('allProducts.html.twig', [
+            'deals' => $deals
+        ]);
+    }
+
+    /**
+     * @Route("/annonces/{cat}", name="app_deals_by_cat")
+     * @return Response
+     */
+    public function productsByCat(DealRepository $repository, int $cat): Response
+    {
+        $deals = $repository->findBy(['Category' => $cat]);
         return $this->render('allProducts.html.twig', [
             'deals' => $deals
         ]);

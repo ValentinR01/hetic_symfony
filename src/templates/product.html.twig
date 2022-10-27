@@ -12,6 +12,8 @@
 
         <div id="productsInfos">
 
+            {% set pourcent = deal.seller.NbUserLikes/(deal.seller.NbUserDislikes + deal.seller.NbUserLikes) * 100 %}
+
             <div id="productsInfos__header">
                 <div>
                     <h1>{{ deal.title }}</h1>
@@ -20,9 +22,8 @@
                 <div class="sellerInfos">
                     <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                     <span>{{ deal.seller }}</span>
-                    <span>{{ deal.seller.email }}</span>
+                    <span>{{ pourcent|round }}% de recommendation</span>
                     <!--<span>98% de recommendation</span>-->
-                    <!--<span> deal.user.email </span>-->
                 </div>
             </div>
 
@@ -40,49 +41,54 @@
             <p>
                 {{ deal.description }}
             </p>
-            <a href="#" class="btn btn--primary">Acheter</a>
+            {% if deal.isSold == 0 %}
+                <a href="#" class="btn btn--primary">Acheter</a>
+            {% else %}
+                <span class="btn btn--primary">Déjà vendu</span>
+            {% endif %}
 
         </div>
 
         <div id="comments">
 
             <h2> Commentaires</h2>
-            <p>Il n'y a pas encore de commentaires</p>
 
-            <div class="comments__conversation">
-                <div class="comments__message">
-                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                    <p>
-                        29/09/2022
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur.
-                    </p>
-                </div>
-            </div>
+            {% if comments %}
+                {% for comment in comments %}
+                    {% set comParent = comment.id|trans  %}
 
-            <div class="comments__conversation">
-                <div class="comments__message">
-                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                    <p>
-                        28/09/2022
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                </div>
+                    <div class="comments__conversation">
+                        <div class="comments__message">
+                            <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                            <p>
+                                {{ comment.DateCreation | date("d/m/Y")}}
+                                <br>
+                                {{ comment.Content }}
+                            </p>
+                        </div>
 
-                <div class="comments__message">
-                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                    <p>
-                        28/09/2022
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
-                    </p>
-                </div>
-            </div>
+                        {% for response in responses %}
+                            {% if response.Parent.id == 10 %}
+                                <div class="comments__message">
+                                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                                    <p>
+                                        {{ response.DateCreation | date("d/m/Y")}}
+                                        <br>
+                                        {{ response.Content }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Il n'y a pas encore de commentaire.</p>
+                <br>
+            {% endif %}
 
-            <a href="#" class="btn btn--primary">Poser une question</a>
+            {% if deal.isSold == 0 %}
+                <a href="#" class="btn btn--primary">Poser une question</a>
+            {% endif %}
 
         </div>
 
@@ -95,23 +101,19 @@
                     </g>
                 </svg>
 
-                <div>
-                    <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                {% for recommendation in recommendations %}
 
-                <div>
-                    <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                    <div>
+                        <a href="{{ path('app_deal_show', {id: recommendation.id} ) }}">
+                            <img src="https://via.placeholder.com/230x290" alt="image produit">
+                        </a>
+                        <a href="{{ path('app_deal_show', {id: recommendation.id} ) }}">
+                            <p>{{ recommendation.title }}</p>
+                        </a>
+                        <p>{{ recommendation.price }}€</p>
+                    </div>
 
-                <div>
-                    <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                {% endfor %}
 
                 <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_32_633)">

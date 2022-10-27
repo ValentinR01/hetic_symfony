@@ -20,14 +20,30 @@
         </div>
 
         <div id="catProducts">
-            <img id="catProducts__meublesImage" src="https://via.placeholder.com/410x670" alt="image couverture meubles">
-            <p id="catProducts__meublesTitle">Meubles</p>
-            <img id="catProducts__vaisselleImage" src="https://via.placeholder.com/430x300" alt="image couverture vaisselle">
-            <p id="catProducts__vaisselleTitle">Vaisselle</p>
-            <img id="catProducts__lumiereImage" src="https://via.placeholder.com/205x300" alt="image couverture lumière">
-            <p id="catProducts__lumiereTitle">Lumière</p>
-            <img id="catProducts__livresImage" src="https://via.placeholder.com/205x300" alt="image couverture livres">
-            <p id="catProducts__livresTitle">Livres</p>
+            <a href="{{ path('app_deals_by_cat', {cat: 1} ) }}" id="catProducts__meublesImage">
+                <img src="https://via.placeholder.com/410x670" alt="image couverture meubles">
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 1} ) }}" id="catProducts__meublesTitle">
+                <p>Meubles</p>
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 2} ) }}" id="catProducts__vaisselleImage">
+                <img src="https://via.placeholder.com/430x300" alt="image couverture vaisselle">
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 2} ) }}" id="catProducts__vaisselleTitle">
+                <p>Vaisselle</p>
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 3} ) }}" id="catProducts__lumiereImage">
+                <img src="https://via.placeholder.com/205x300" alt="image couverture lumière">
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 3} ) }}" id="catProducts__lumiereTitle">
+                <p>Lumière</p>
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 4} ) }}" id="catProducts__livresImage">
+                <img src="https://via.placeholder.com/205x300" alt="image couverture livres">
+            </a>
+            <a href="{{ path('app_deals_by_cat', {cat: 4} ) }}" id="catProducts__livresTitle">
+                <p>Livres</p>
+            </a>
         </div>
 
         <div id="homepage__concept">
@@ -42,13 +58,7 @@
         </div>
 
         <div>
-            <h2>Nos nouveaux vendeurs</h2>
-
-            <div class="sellerInfos">
-                <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                <span>doriane_68</span>
-                <span>90% de recommendations</span>
-            </div>
+            <h2>Nos nouveaux produits</h2>
 
             <div class="carousel">
                 <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,29 +67,19 @@
                     </g>
                 </svg>
 
-                <div>
-                    <a href="{{ path('app_deal_show', {id: 1} ) }}">
-                        <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    </a>
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                {% for deal in deals %}
 
-                <div>
-                    <a href="{{ path('app_deal_show', {id: 2} ) }}">
-                        <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    </a>
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                    <div>
+                        <a href="{{ path('app_deal_show', {id: deal.id} ) }}">
+                            <img src="https://via.placeholder.com/230x290" alt="image produit">
+                        </a>
+                        <a href="{{ path('app_deal_show', {id: deal.id} ) }}">
+                            <p>{{ deal.title }}</p>
+                        </a>
+                        <p>{{ deal.price }}€</p>
+                    </div>
 
-                <div>
-                    <a href="{{ path('app_deal_show', {id: 3} ) }}">
-                        <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    </a>
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                {% endfor %}
 
                 <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_32_633)">

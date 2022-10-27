@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,9 +19,6 @@ class Comment
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $Date_creation = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $Parent_id = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Content = null;
 
@@ -29,6 +28,9 @@ class Comment
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $User = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class)]
+    private ?self $Parent = null;
 
     public function getId(): ?int
     {
@@ -43,18 +45,6 @@ class Comment
     public function setDateCreation(\DateTimeInterface $Date_creation): self
     {
         $this->Date_creation = $Date_creation;
-
-        return $this;
-    }
-
-    public function getParentId(): ?int
-    {
-        return $this->Parent_id;
-    }
-
-    public function setParentId(?int $Parent_id): self
-    {
-        $this->Parent_id = $Parent_id;
 
         return $this;
     }
@@ -91,6 +81,18 @@ class Comment
     public function setUser(?User $User): self
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->Parent;
+    }
+
+    public function setParent(?self $Parent): self
+    {
+        $this->Parent = $Parent;
 
         return $this;
     }
