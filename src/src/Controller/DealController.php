@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\CommentFormType;
 
 class DealController extends AbstractController
 {
@@ -64,20 +65,18 @@ class DealController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
-            $deal->setProductStateId(1);
-            $deal->setDateCreation(new \DateTime());
-
-            # TO CHANGE !
-            $deal->setPhoto('photo');
-            $deal->setSeller('x');
-            $deal->setIsSold(0);
-            $deal->setIsPublished(1);
-            
-
+            $deal
+            ->setDateCreation(new \DateTime())
+            ->setDatePublication(new \DateTime())
+            ->setMainPhoto('photo')
+            ->setPhoto2('photo')
+            ->setPhoto3('photo')
+            ->setSeller($this->getUser())
+            ->setIsSold(0)
+            ->setIsPublished(1);
             $entityManager->persist($deal);
             $entityManager->flush();
-
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_homepage');
         }
 
 
@@ -96,6 +95,8 @@ class DealController extends AbstractController
         $comments = $commentRepository->findParentComments($id);
         $responses = $commentRepository->findChildComments($id);
         $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
+        $form = $this->createForm(CommentFormType::class);
+        $form->handleRequest($request);
 
         return $this->render('product.html.twig', [
             'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations
