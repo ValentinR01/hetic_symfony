@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section id="moderation_user">
+        <h1>Moderation - User edition</h1>
+        <div class="container">
+            {{ form_start(form) }}
+            {{ form_row(form.Pseudo, {'value': user.pseudo }) }}
+            {{ form_row(form.Email, {'value': user.email }) }}
+            <div>
+                <button type="submit" class="btn btn--primary">Valider la modification</button>
+                <a class="btn" href="{{ path('app_admin_users') }}">Annuler</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/createAccount.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 {% endblock %}
 
 {% block body %}
-    <section id="createAccount">
+    <section id="login">
         <h1>Connectez-vous</h1>
 
         <form method="post" action="{{ path('app_security_login') }}">
@@ -22,7 +22,7 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Se connecter</button>
+                <button type="submit" class="btn btn--primary">Se connecter</button>
             </div>
         </form>
 
