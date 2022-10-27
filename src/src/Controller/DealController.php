@@ -7,11 +7,12 @@ use App\Form\DealFormType;
 use App\Form\CreateAccountType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DealController extends AbstractController
@@ -103,13 +104,23 @@ class DealController extends AbstractController
 
     /**
      * @Route("/annonces", name="app_all_deals")
+     * @param DealRepository $repository
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function allProducts(DealRepository $repository): Response
+    public function allProducts(DealRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
-        $deals = $repository->findAll();
+        $search = $request->query->get('q');
+        $deals = $repository->findAllQueryBuilder($search);
+
+        $pagination = $paginator->paginate(
+            $deals,
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('allProducts.html.twig', [
-            'deals' => $deals
+            'deals' => $pagination
         ]);
     }
 

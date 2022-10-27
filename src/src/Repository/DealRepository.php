@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Deal;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -52,6 +53,22 @@ class DealRepository extends ServiceEntityRepository
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param string|null $search
+     * @return QueryBuilder
+     */
+    public function findAllQueryBuilder(string $search = null) : QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('m');
+
+        if ($search !== null) {
+           $queryBuilder
+               ->setParameter('searchTerm', '%' . $search .'%');
+        }
+
+        return $queryBuilder;
     }
 
     /**
