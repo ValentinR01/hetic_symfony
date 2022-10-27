@@ -48,7 +48,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function findUserSellers(string $value){
         return $this->createQueryBuilder('u')
-            ->andWhere('u.Bought_other_users_pseudo LIKE :val')
+            ->andWhere('u.Sold_to LIKE :val')
             ->setParameter('val', '%'.$value.'%')
             ->setMaxResults(2)
             ->getQuery()
