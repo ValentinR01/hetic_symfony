@@ -93,12 +93,12 @@ class DealController extends AbstractController
     public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id): Response
     {
         $cat = $deal->getCategory();
-        $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
         $comments = $commentRepository->findParentComments($id);
         $responses = $commentRepository->findChildComments($id);
+        $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
 
         return $this->render('product.html.twig', [
-            'deal' => $deal, 'recommendations' => $recommendations, 'comments' => $comments, 'responses' => $responses
+            'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations
         ]);
     }
 
