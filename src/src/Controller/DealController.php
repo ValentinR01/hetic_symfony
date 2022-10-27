@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Deal;
 use App\Form\DealFormType;
 use App\Form\CreateAccountType;
+use App\Repository\CategoryRepository;
+use App\Repository\CommentRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,10 +90,11 @@ class DealController extends AbstractController
      * @Route("/annonce/{id}", name="app_deal_show")
      * @return Response
      */
-    public function show(Deal $deal, DealRepository $repository, int $id): Response
+    public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id): Response
     {
         $cat = $deal->getCategory();
-        $recommendations = $repository->findRecommendationsByDeal($id, $cat);
+        $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
+        $comments = $commentRepository->findBy();
 
         return $this->render('product.html.twig', [
             'deal' => $deal, 'recommendations' => $recommendations
@@ -105,6 +108,18 @@ class DealController extends AbstractController
     public function allProducts(DealRepository $repository): Response
     {
         $deals = $repository->findAll();
+        return $this->render('allProducts.html.twig', [
+            'deals' => $deals
+        ]);
+    }
+
+    /**
+     * @Route("/annonces/{cat}", name="app_deals_by_cat")
+     * @return Response
+     */
+    public function productsByCat(DealRepository $repository, int $cat): Response
+    {
+        $deals = $repository->findBy(['Category' => $cat]);
         return $this->render('allProducts.html.twig', [
             'deals' => $deals
         ]);

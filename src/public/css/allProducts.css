@@ -5,6 +5,10 @@
     row-gap: 30px;
 }
 
+#productsGallery div{
+    width: 250px;
+}
+
 .productsGallery__single p:nth-child(2){
     margin: 5px 0;
 }
