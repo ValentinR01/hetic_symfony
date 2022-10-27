@@ -19,13 +19,14 @@ class DealFormType extends AbstractType
         ->add('Price', null, ['label' => 'Prix'])
         ->add('Title', null, ['label' => 'Titre'])
         ->add('Description', null, ['label' => 'Description'])
-        ->add('Photo', FileType::class, array('multiple' => true, 'label' => 'Photo (png, jpeg)'))
+        ->add('MainPhoto', FileType::class, array('label' => 'Photo principale'))
+        ->add('Photo_2', FileType::class, array('label' => 'Photo n°2'))
+        ->add('Photo_3', FileType::class, array('label' => 'Photo n°3'))
             #->add('Photo_1')
             #->add('Photo_2')
             #->add('Photo_3')
-            ->add('Id_category')
-            ->add('Category', null, ['label' => 'Catégorie'])
-            ->add('Product_state', null, ['label' => 'Etat'])
+        ->add('Category', null, ['label' => 'Catégorie'])
+        ->add('Product_state', null, ['label' => 'Etat'])
         ;
     }
 
