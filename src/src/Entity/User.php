@@ -225,6 +225,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSoldTo(?string $Sold_to): self
     {
         $this->Sold_to = $Sold_to;
+    }
 
     public function getSalt()
     {
