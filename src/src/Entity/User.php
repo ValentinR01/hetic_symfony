@@ -53,9 +53,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'Seller', targetEntity: Deal::class, cascade:['remove'])]
     private Collection $Deals;
 
-    #[ORM\Column(type: Types::JSON)]
-    private array $Roles = [];
-
     #[ORM\OneToMany(mappedBy: 'Buyer', targetEntity: Deal::class)]
     private Collection $Purchases;
 
