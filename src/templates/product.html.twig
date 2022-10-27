@@ -54,21 +54,10 @@
             <h2> Commentaires</h2>
 
             {% if comments %}
-
                 {% for comment in comments %}
+                    {% set comParent = comment.id|trans  %}
 
-                <div class="comments__conversation">
-                    {% set comParent = 1 %}
-                    <div class="comments__message">
-                        <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                        <p>
-                            {{ comment.DateCreation | date("d/m/Y")}}
-                            <br>
-                            {{ comment.Content }}
-                        </p>
-                    </div>
-
-                    {% if comment%}
+                    <div class="comments__conversation">
                         <div class="comments__message">
                             <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                             <p>
@@ -77,29 +66,20 @@
                                 {{ comment.Content }}
                             </p>
                         </div>
-                    {% endif %}
-                </div>
 
-                <!--<div class="comments__conversation">
-                    <div class="comments__message">
-                        <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                        <p>
-                            28/09/2022
-                            <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
+                        {% for response in responses %}
+                            {% if response.Parent.id == 10 %}
+                                <div class="comments__message">
+                                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                                    <p>
+                                        {{ response.DateCreation | date("d/m/Y")}}
+                                        <br>
+                                        {{ response.Content }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-
-                    <div class="comments__message">
-                        <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                        <p>
-                            28/09/2022
-                            <br>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua.
-                        </p>
-                    </div>
-                </div>-->
                 {% endfor %}
             {% else %}
                 <p>Il n'y a pas encore de commentaire.</p>
