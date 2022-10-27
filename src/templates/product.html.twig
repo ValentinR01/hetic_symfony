@@ -12,6 +12,8 @@
 
         <div id="productsInfos">
 
+            {% set pourcent = deal.seller.NbUserLikes/(deal.seller.NbUserDislikes + deal.seller.NbUserLikes) * 100 %}
+
             <div id="productsInfos__header">
                 <div>
                     <h1>{{ deal.title }}</h1>
@@ -20,8 +22,8 @@
                 <div class="sellerInfos">
                     <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                     <span>{{ deal.seller }}</span>
-                    <span>98% de recommendation</span>
-                    <!--<span> deal.user.email </span>-->
+                    <span>{{ pourcent|round }}% de recommendation</span>
+                    <!--<span>98% de recommendation</span>-->
                 </div>
             </div>
 
@@ -32,14 +34,18 @@
             </div>
 
             <div class="productsInfos__bar">
-                <p>Etat : </p>
+                <p>Etat : {{ deal.ProductState }}</p>
                 <p>Date mise en ligne : {{ deal.DatePublication|date("d/m/Y") }}</p>
             </div>
 
             <p>
                 {{ deal.description }}
             </p>
-            <a href="#" class="btn btn--primary">Acheter</a>
+            {% if deal.isSold == 0 %}
+                <a href="#" class="btn btn--primary">Acheter</a>
+            {% else %}
+                <span class="btn btn--primary">Déjà vendu</span>
+            {% endif %}
 
         </div>
 
@@ -81,7 +87,9 @@
                 </div>
             </div>
 
-            <a href="#" class="btn btn--primary">Poser une question</a>
+            {% if deal.isSold == 0 %}
+                <a href="#" class="btn btn--primary">Poser une question</a>
+            {% endif %}
 
         </div>
 
@@ -94,23 +102,15 @@
                     </g>
                 </svg>
 
-                <div>
-                    <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                {% for recommendation in recommendations %}
 
-                <div>
-                    <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                    <div>
+                        <img src="https://via.placeholder.com/230x290" alt="image produit">
+                        <p>{{ recommendation.title }}</p>
+                        <p>{{ recommendation.price }}€</p>
+                    </div>
 
-                <div>
-                    <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                {% endfor %}
 
                 <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_32_633)">

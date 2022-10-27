@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\CreateAccountType;
+use App\Repository\DealRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +18,11 @@ class UserController extends AbstractController
      * @return Response
      * @Route("/compte/{pseudo}", name="app_user_show")
      */
-    public function account(UserRepository $repository, string $pseudo): Response
+    public function account(UserRepository $repository, DealRepository $dealRepo, string $pseudo): Response
     {
         $user = $repository->findOneBy(['Pseudo' => $pseudo]);
+        $deals = $dealRepo->findDealBySeller($user);
+        $sellers = $repository->findUserSellers($pseudo);
 
         if (!$user) {
             throw $this->createNotFoundException(
@@ -27,7 +31,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('account.html.twig', [
-            'user' => $user
+            'account' => $user, 'deals' => $deals, 'sellers' => $sellers
         ]);
     }
 
@@ -38,5 +42,25 @@ class UserController extends AbstractController
     public function new(): Response
     {
         return $this->render('createAccount.html.twig');
+    }
+
+    /**
+     * @Route("/account/{id}/vote/{slug}", name="app_vote_sellers")
+     * @return Response
+     */
+    public function sellerVote(User $user, int $id, string $slug, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $vote = $request->request->get('vote');
+        if ($vote === 'like'){
+            $user->voteLike();
+        }
+        elseif ($vote === 'dislike'){
+            $user->voteDislike();
+        }
+
+        $entityManager->flush();
+        return $this->redirectToRoute('app_user_show', [
+            'id'=>$id, 'pseudo'=>$slug
+        ]);
     }
 }

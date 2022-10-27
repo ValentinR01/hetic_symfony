@@ -1,9 +1,0 @@
-{
-    "require": {
-        "doctrine/orm": "^2.13",
-        "doctrine/annotations": "^1.13",
-        "symfony/templating": "^6.1",
-        "symfony/debug": "^4.4",
-        "symfony/asset": "^6.1"
-    }
-}

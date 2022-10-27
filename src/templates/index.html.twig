@@ -42,13 +42,7 @@
         </div>
 
         <div>
-            <h2>Nos meilleurs vendeurs</h2>
-
-            <div class="sellerInfos">
-                <img src="https://via.placeholder.com/60" alt="image profil vendeur">
-                <span>doriane_68</span>
-                <span>90% de recommendations</span>
-            </div>
+            <h2>Nos nouveaux produits</h2>
 
             <div class="carousel">
                 <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,29 +51,19 @@
                     </g>
                 </svg>
 
-                <div>
-                    <a href="{{ path('app_deal_show', {id: 1} ) }}">
-                        <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    </a>
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                {% for deal in deals %}
 
-                <div>
-                    <a href="{{ path('app_deal_show', {id: 2} ) }}">
-                        <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    </a>
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                    <div>
+                        <a href="{{ path('app_deal_show', {id: deal.id} ) }}">
+                            <img src="https://via.placeholder.com/230x290" alt="image produit">
+                        </a>
+                        <a href="{{ path('app_deal_show', {id: deal.id} ) }}">
+                            <p>{{ deal.title }}</p>
+                        </a>
+                        <p>{{ deal.price }}€</p>
+                    </div>
 
-                <div>
-                    <a href="{{ path('app_deal_show', {id: 3} ) }}">
-                        <img src="https://via.placeholder.com/230x290" alt="image produit">
-                    </a>
-                    <p>Nom de l'article</p>
-                    <p>50€</p>
-                </div>
+                {% endfor %}
 
                 <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_32_633)">

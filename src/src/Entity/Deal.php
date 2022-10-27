@@ -54,6 +54,7 @@ class Deal
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+
     private ?State $Product_state = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -64,6 +65,7 @@ class Deal
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $Photo_3 = null;
+
 
     public function getId(): ?int
     {
@@ -224,6 +226,7 @@ class Deal
         $this->Product_state = $Product_state;
 
         return $this;
+
     }
 
     public function getMainPhoto(): ?string
@@ -260,5 +263,10 @@ class Deal
         $this->Photo_3 = $Photo_3;
 
         return $this;
+    }
+    
+    public function __toString(): string {
+        return $this->Product_state;
+
     }
 }
