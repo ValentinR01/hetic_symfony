@@ -117,7 +117,7 @@ class DealController extends AbstractController
         $pagination = $paginator->paginate(
             $deals,
             $request->query->getInt('page', 1),
-            10
+            9
         );
         return $this->render('allProducts.html.twig', [
             'deals' => $pagination
