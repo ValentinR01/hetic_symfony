@@ -7,6 +7,7 @@ use App\Form\DealFormType;
 use App\Form\CreateAccountType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -118,9 +119,10 @@ class DealController extends AbstractController
      * @Route("/annonces/{cat}", name="app_deals_by_cat")
      * @return Response
      */
-    public function productsByCat(DealRepository $repository, int $cat): Response
+    public function productsByCat(DealRepository $repository, int $cat, Request $request, PaginatorInterface $paginator): Response
     {
         $deals = $repository->findBy(['Category' => $cat]);
+
         return $this->render('allProducts.html.twig', [
             'deals' => $deals
         ]);
