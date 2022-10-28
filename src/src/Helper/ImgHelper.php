@@ -31,7 +31,7 @@ class ImgHelper
         // Deplace file from tempory to definitive direction
         $uploadedFile->move($this->imagesDir, $fileName);
 
-        return "/images/".$fileName;
+        return $fileName;
     }
 
 }
