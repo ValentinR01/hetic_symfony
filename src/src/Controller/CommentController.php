@@ -43,7 +43,7 @@ class CommentController extends AbstractController
 
 
         return $this->render('createProduct.html.twig', [
-            'dealForm' => $form->createView()
+            'commentForm' => $form->createView()
         ]);
     }
 

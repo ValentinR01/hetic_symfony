@@ -17,6 +17,14 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
+    {#Check if the user is admin#}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="admin-header">
+            <a href="{{ path('app_admin') }}">Admin Session</a>
+        </div>
+    {% endif %}
+
     <header>
         <div>
             <a href="{{ path('app_homepage') }}">

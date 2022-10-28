@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\CommentFormType;
+use App\Helper\ImgHelper;
 
 class DealController extends AbstractController
 {
@@ -29,7 +31,7 @@ class DealController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
             $deal->setDateCreation(new \DateTime());
-            dd($form->getData());
+            dd($form['MainPhoto']->getData());
 
             # TO CHANGE !
             #$deal->setPhoto($helper->uploadImg($form->getData('')));
@@ -58,27 +60,26 @@ class DealController extends AbstractController
      * @return Response
      */
 
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
     {
         $form = $this->createForm(DealFormType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
-            $deal->setProductStateId(1);
-            $deal->setDateCreation(new \DateTime());
-
-            # TO CHANGE !
-            $deal->setPhoto('photo');
-            $deal->setSeller('x');
-            $deal->setIsSold(0);
-            $deal->setIsPublished(1);
-            
-
+            $deal
+            ->setDateCreation(new \DateTime())
+            ->setDatePublication(new \DateTime())
+            ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
+            ->setPhoto2('photo')
+            ->setPhoto3('photo')
+            ->setSeller($this->getUser())
+            ->setIsSold(0)
+            ->setIsPublished(1);
             $entityManager->persist($deal);
             $entityManager->flush();
-
-            return $this->redirectToRoute('homepage');
+            
+            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
 
 
