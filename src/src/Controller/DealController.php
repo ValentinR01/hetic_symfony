@@ -7,7 +7,6 @@ use App\Form\DealFormType;
 use App\Form\CreateAccountType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
