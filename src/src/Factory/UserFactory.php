@@ -43,13 +43,25 @@ final class UserFactory extends ModelFactory
 
     protected function getDefaults(): array
     {
+        $listImages = [
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/a1.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/a2.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/a3.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/f1.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/f2.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/h1.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/h2.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/h3.jpeg'
+        ];
+
         return [
             'Pseudo' => self::faker()->firstName(),
             'Email' => self::faker()->email(),
             'Password' => password_hash('neverend', PASSWORD_BCRYPT, ['cost' => 13]) . PHP_EOL,
             'Roles' => ['ROLE_USER'],
             'Nb_user_likes' => self::faker()->randomDigit(),
-            'Nb_user_dislikes' => self::faker()->randomDigit()
+            'Nb_user_dislikes' => self::faker()->randomDigit(),
+            'Photo' => $listImages[rand(0, count($listImages) - 1)],
         ];
     }
 
