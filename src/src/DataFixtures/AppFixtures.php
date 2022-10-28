@@ -15,7 +15,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $listCategory = ['Meuble', 'Vaiselle', 'Lumière', 'Divers'];
+        $listCategory = ['Meuble', 'Vaisselle', 'Lumière', 'Divers'];
         $categories = [];
 
         for ($i = 0; $i < count($listCategory); $i++) {
@@ -34,13 +34,13 @@ class AppFixtures extends Fixture
             $manager->persist($state);
             $states[] = $state;
         }
-        $list_user_sold_to = ["Dodo_68", "Isa22", "Paulo", "Dada", "bg_du_93"];
-        UserFactory::createMany(20);
-        UserFactory::createMany(5, function() use ($list_user_sold_to) {
-            return [
-                'Sold_to' => $list_user_sold_to[rand(0, count($list_user_sold_to) - 1)],
-            ];
-        });
+
+        $userPseudo = [];
+        for ($i = 0; $i < 10; $i++) {
+            $newUserPseudo = UserFactory::createOne()->getPseudo();
+            $userPseudo[] = $newUserPseudo;
+        }
+        UserFactory::new()->soldTo($userPseudo)->many(25)->create();
         UserFactory::new()->isAdmin()->many(5)->create();
 
         DealFactory::createMany(20, function() use ($categories, $states) {
