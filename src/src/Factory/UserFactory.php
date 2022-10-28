@@ -7,6 +7,7 @@ use App\Repository\UserRepository;
 use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
+use Psr\Log\LoggerInterface;
 
 /**
  * @extends ModelFactory<User>
@@ -29,16 +30,26 @@ use Zenstruck\Foundry\Proxy;
  */
 final class UserFactory extends ModelFactory
 {
-    public function __construct()
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
     {
         parent::__construct();
 
-        // TODO inject services if required (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services)
+        $this->logger = $logger;
     }
 
     public function isAdmin(): self
     {
         return $this->addState(['Roles' => ['ROLE_ADMIN']]);
+    }
+
+    public function soldTo($userPseudo): self
+    {
+        $random_number = rand(0, count($userPseudo) -1);
+        $random_number2 = rand(0, count($userPseudo) -1);
+        $random_number3 = rand(0, count($userPseudo) -1);
+        return $this->addState(['Sold_to' => $userPseudo["$random_number"] . ', ' . $userPseudo["$random_number2"] . ', ' . $userPseudo["$random_number3"]]);
     }
 
     protected function getDefaults(): array
@@ -48,10 +59,7 @@ final class UserFactory extends ModelFactory
             'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/a2.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/a3.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/f1.jpeg',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/f2.jpeg',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/h1.jpeg',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/h2.jpeg',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/h3.jpeg'
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/profil/f3.jpeg'
         ];
 
         return [
@@ -61,7 +69,7 @@ final class UserFactory extends ModelFactory
             'Roles' => ['ROLE_USER'],
             'Nb_user_likes' => self::faker()->randomDigit(),
             'Nb_user_dislikes' => self::faker()->randomDigit(),
-            'Photo' => $listImages[rand(0, count($listImages) - 1)],
+            'Photo' => $listImages[rand(0, count($listImages) - 1)]
         ];
     }
 

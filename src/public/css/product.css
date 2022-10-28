@@ -71,10 +71,15 @@
     margin: 80px 0;
 }
 
+#comments h2{
+    margin-bottom: 0;
+}
+
 #comments img{
     border-radius: 30px;
     height: 60px;
     width: 60px;
+    object-fit: cover;
 }
 
 .comments__conversation{

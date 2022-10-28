@@ -21,13 +21,11 @@ class DealFormType extends AbstractType
         ->add('Title', null, ['label' => 'Titre'])
         ->add('Description', null, ['label' => 'Description'])
         ->add('Category', null, ['label' => 'Catégorie'])
-        ->add('Product_state', null, ['label' => 'Etat']);
-        if (!$options){
-            $builder
-            ->add('MainPhoto', FileType::class, ['label' => 'Photo principale'])
-            ->add('Photo_2', FileType::class, array('label' => 'Photo n°2'))
-            ->add('Photo_3', FileType::class, array('label' => 'Photo n°3'));
-        };
+        ->add('Product_state', null, ['label' => 'Etat'])
+        ->add('MainPhoto', FileType::class, ['label' => 'Photo principale'])
+        ->add('Photo_2', FileType::class, array('label' => 'Photo n°2'))
+        ->add('Photo_3', FileType::class, array('label' => 'Photo n°3'));
+        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

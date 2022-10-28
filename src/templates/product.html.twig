@@ -22,7 +22,11 @@
                     <p>{{ deal.price }}€</p>
                 </div>
                 <div class="sellerInfos">
-                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                    {% if deal.seller.photo %}
+                        <img src="{{ deal.seller.photo }}" alt="image profil vendeur">
+                    {% else %}
+                        <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" alt="icone utilsateur">
+                    {% endif %}
                     <span>{{ deal.seller }}</span>
                     {% if pourcent %}
                         <span>{{ pourcent|round }}% de recommendation</span>
@@ -66,7 +70,11 @@
 
                     <div class="comments__conversation">
                         <div class="comments__message">
-                            <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                            {% if comment.User.photo %}
+                                <img src="{{ comment.User.photo }}" alt="image profil vendeur">
+                            {% else %}
+                                <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" alt="icone utilsateur">
+                            {% endif %}
                             <p>
                                 {{ comment.DateCreation | date("d/m/Y")}}
                                 <br>
@@ -75,9 +83,13 @@
                         </div>
 
                         {% for response in responses %}
-                            {% if response.Parent.id == 10 %}
+                            {% if response.Parent.id == comParent %}
                                 <div class="comments__message">
-                                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                                    {% if response.User.photo %}
+                                        <img src="{{ response.User.photo }}" alt="image profil vendeur">
+                                    {% else %}
+                                        <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" alt="icone utilsateur">
+                                    {% endif %}
                                     <p>
                                         {{ response.DateCreation | date("d/m/Y")}}
                                         <br>
@@ -114,7 +126,7 @@
 
                     <div>
                         <a href="{{ path('app_deal_show', {id: recommendation.id} ) }}">
-                            <img src="https://via.placeholder.com/230x290" alt="image produit">
+                            <img src="{{ recommendation.MainPhoto }}" alt="image produit">
                         </a>
                         <a href="{{ path('app_deal_show', {id: recommendation.id} ) }}">
                             <p>{{ recommendation.title }}</p>
