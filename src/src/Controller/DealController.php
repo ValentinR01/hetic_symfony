@@ -107,11 +107,12 @@ class DealController extends AbstractController
      * @Route("/annonces", name="app_all_deals")
      * @return Response
      */
-    public function allProducts(DealRepository $repository): Response
+    public function allProducts(DealRepository $dealRepository, CategoryRepository $categoryRepository): Response
     {
-        $deals = $repository->findAll();
+        $deals = $dealRepository->findAll();
+        $cats = $categoryRepository->findAll();
         return $this->render('allProducts.html.twig', [
-            'deals' => $deals
+            'deals' => $deals, 'cats' => $cats
         ]);
     }
 
@@ -119,12 +120,12 @@ class DealController extends AbstractController
      * @Route("/annonces/{cat}", name="app_deals_by_cat")
      * @return Response
      */
-    public function productsByCat(DealRepository $repository, int $cat): Response
+    public function productsByCat(DealRepository $repository, CategoryRepository $categoryRepository, int $cat): Response
     {
         $deals = $repository->findBy(['Category' => $cat]);
-
+        $cats = $categoryRepository->findAll();
         return $this->render('allProducts.html.twig', [
-            'deals' => $deals
+            'deals' => $deals, 'cats' => $cats
         ]);
     }
 }
