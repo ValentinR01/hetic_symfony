@@ -28,6 +28,10 @@
     font-size: 15px;
 }
 
+.sellerInfos img{
+    object-fit: cover;
+}
+
 #productsInfos .sellerInfos img{
     align-self: center;
 }

@@ -14,6 +14,12 @@
     width: 230px;
 }
 
+.carousel img{
+    width: 230px;
+    height: 290px;
+    object-fit: cover;
+}
+
 .carousel div p:first-of-type{
     text-overflow: ellipsis;
     overflow: hidden;
