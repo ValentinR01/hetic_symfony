@@ -77,7 +77,7 @@ class DealController extends AbstractController
 
             $entityManager->persist($deal);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Votre annonce a bien été créée !');
             return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
 

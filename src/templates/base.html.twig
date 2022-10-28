@@ -57,6 +57,12 @@
             <span>Garantie qualité valable 3 mois</span>
         </div>
     </header>
+    {#Display Flash Message#}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <body>
         {% block body %}{% endblock %}
     </body>
