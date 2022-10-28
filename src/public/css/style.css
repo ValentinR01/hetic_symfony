@@ -229,3 +229,15 @@ footer ul li:first-child {
         padding: 50px 30px;
     }
 }
+
+/* Flash Message */
+.alert-success {
+    color: white;
+    background-color: #324c19;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Montserrat';
+    padding: 9px;
+    margin-top: -51px;
+    margin-bottom: 20px;
+}
