@@ -25,11 +25,6 @@ select{
     background-repeat: no-repeat;
 }
 
-#createProduct form{
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .groupFields{
     width: 50%;
 }
