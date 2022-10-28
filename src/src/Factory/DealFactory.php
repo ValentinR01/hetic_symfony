@@ -48,14 +48,35 @@ final class DealFactory extends ModelFactory
 
     protected function getDefaults(): array
     {
+
+        $listImages = [
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/assiettes_fleurs.png',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/assiettes.webp',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/couverts.webp',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/fauteuil-table-rotin.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/fauteuil-vintage.webp',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/flutes.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/lampes_chevet.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/malle.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/mini-tourne-disque-vintage-scaled.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/miroir.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/moulin_poivre.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/paniers.png',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/suspension-luminaire.webp',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/tabouret.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/vase.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/velo.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/verres.jpeg'
+        ];
+
         $Creation_and_publication_date = self::faker()->dateTimeBetween('- 100 days', '-1 second');
         return [
             'Price' => self::faker()->numberBetween(1, 200),
             'Title' => self::faker()->realText(40),
             'Description' => self::faker()->paragraphs(rand(1,4), true),
-            'MainPhoto' => self::faker()->realText(40),
-            'Photo2' => self::faker()->realText(40),
-            'Photo3' => self::faker()->realText(40),
+            'MainPhoto' => $listImages[rand(0, count($listImages) - 1)],
+            'Photo2' => $listImages[rand(0, count($listImages) - 1)],
+            'Photo3' => $listImages[rand(0, count($listImages) - 1)],
             'Date_creation' => $Creation_and_publication_date,
             'Is_sold' => false,
             'Is_published' => true,
