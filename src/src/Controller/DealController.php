@@ -95,8 +95,6 @@ class DealController extends AbstractController
         $comments = $commentRepository->findParentComments($id);
         $responses = $commentRepository->findChildComments($id);
         $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
-        $form = $this->createForm(CommentFormType::class);
-        $form->handleRequest($request);
 
         return $this->render('product.html.twig', [
             'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations
