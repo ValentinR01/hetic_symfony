@@ -48,13 +48,9 @@ final class DealFactory extends ModelFactory
 
     protected function getDefaults(): array
     {
-
         $listImages = [
             'https://raitohetic.s3.eu-west-3.amazonaws.com/assiettes_fleurs.png',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/assiettes.webp',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/couverts.webp',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/fauteuil-table-rotin.jpeg',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/fauteuil-vintage.webp',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/flutes.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/lampes_chevet.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/malle.jpeg',
@@ -62,7 +58,6 @@ final class DealFactory extends ModelFactory
             'https://raitohetic.s3.eu-west-3.amazonaws.com/miroir.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/moulin_poivre.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/paniers.png',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/suspension-luminaire.webp',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/tabouret.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/vase.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/velo.jpeg',
