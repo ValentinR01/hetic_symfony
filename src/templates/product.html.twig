@@ -22,7 +22,11 @@
                     <p>{{ deal.price }}€</p>
                 </div>
                 <div class="sellerInfos">
-                    <img src="{{ deal.seller.photo }}" alt="image profil vendeur">
+                    {% if deal.seller.photo %}
+                        <img src="{{ deal.seller.photo }}" alt="image profil vendeur">
+                    {% else %}
+                        <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" alt="icone utilsateur">
+                    {% endif %}
                     <span>{{ deal.seller }}</span>
                     {% if pourcent %}
                         <span>{{ pourcent|round }}% de recommendation</span>

@@ -12,7 +12,11 @@
         <div id="personalInfos">
             <h1>Vos informations personnelles</h1>
             <form>
-                <img src="{{ account.photo }}" alt="image profil vendeur">
+                {% if account.photo %}
+                    <img src="{{ account.photo }}" alt="image profil vendeur">
+                {% else %}
+                    <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" alt="icone utilsateur">
+                {% endif %}
                 <a href="">Changer l'image</a>
                 <label>Nom utilisateur</label>
                 <p>{{ account.pseudo }}</p>
@@ -35,6 +39,7 @@
                 {% for deal in deals %}
 
                     <div>
+
                         <img src="{{ deal.MainPhoto }}" alt="image produit">
                         <p>{{ deal.title }}</p>
                         <p>50€</p>
@@ -72,7 +77,11 @@
 
                     <div class="carouselSellers__card">
                         <div class="sellerInfos">
-                            <img src="{{ seller.photo }}" alt="image profil vendeur">
+                            {% if seller.photo %}
+                                <img src="{{ seller.photo }}" alt="image profil vendeur">
+                            {% else %}
+                                <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" alt="icone utilsateur">
+                            {% endif %}
                             <span>{{ seller.pseudo }}</span>
                             {% if pourcent %}
                                 <span>{{ pourcent|round }}% de recommendation</span>
