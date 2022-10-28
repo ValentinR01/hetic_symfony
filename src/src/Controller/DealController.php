@@ -119,7 +119,7 @@ class DealController extends AbstractController
      * @Route("/annonces/{cat}", name="app_deals_by_cat")
      * @return Response
      */
-    public function productsByCat(DealRepository $repository, int $cat, Request $request, PaginatorInterface $paginator): Response
+    public function productsByCat(DealRepository $repository, int $cat): Response
     {
         $deals = $repository->findBy(['Category' => $cat]);
 
