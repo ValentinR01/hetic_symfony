@@ -23,34 +23,33 @@ class DealController extends AbstractController
      * @Route("/annonce/{id}/modifier", name="app_edit_deal")
      * @return Response
      */
-    public function edit(Deal $deal, Request $request, EntityManagerInterface $entityManager): Response
+    public function edit(Deal $deal, Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
     {
         $form = $this->createForm(DealFormType::class, $deal);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
-            $deal->setDateCreation(new \DateTime());
-            dd($form['MainPhoto']->getData());
-
-            # TO CHANGE !
-            #$deal->setPhoto($helper->uploadImg($form->getData('')));
-            $deal->setSeller(new User());
-            $deal->setIsSold(0);
-            $deal->setIsPublished(1);
-            $deal->setDatePublication(new \DateTime());
-
-
+            $deal
+            ->setDateCreation(new \DateTime())
+            ->setDatePublication(new \DateTime())
+            ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
+            ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
+            ->setPhoto2($helper->uploadImg($form['Photo_3']->getData()))
+            ->setSeller($this->getUser())
+            ->setIsSold(0)
+            ->setIsPublished(1);
 
             $entityManager->persist($deal);
             $entityManager->flush();
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
+
 
         return $this->render('createProduct.html.twig', [
             'dealForm' => $form->createView()
         ]);
-
 
     }
 
@@ -70,14 +69,15 @@ class DealController extends AbstractController
             ->setDateCreation(new \DateTime())
             ->setDatePublication(new \DateTime())
             ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
-            ->setPhoto2('photo')
-            ->setPhoto3('photo')
+            ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
+            ->setPhoto2($helper->uploadImg($form['Photo_3']->getData()))
             ->setSeller($this->getUser())
             ->setIsSold(0)
             ->setIsPublished(1);
+
             $entityManager->persist($deal);
             $entityManager->flush();
-            
+
             return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
 
