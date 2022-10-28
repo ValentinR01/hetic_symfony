@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
         }
 
         $userPseudo = [];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $newUserPseudo = UserFactory::createOne()->getPseudo();
             $userPseudo[] = $newUserPseudo;
         }
