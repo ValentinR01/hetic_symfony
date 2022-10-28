@@ -35,7 +35,7 @@ class DealController extends AbstractController
             ->setDatePublication(new \DateTime())
             ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
             ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
-            ->setPhoto2($helper->uploadImg($form['Photo_3']->getData()))
+            ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
             ->setSeller($this->getUser())
             ->setIsSold(0)
             ->setIsPublished(1);
@@ -70,7 +70,7 @@ class DealController extends AbstractController
             ->setDatePublication(new \DateTime())
             ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
             ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
-            ->setPhoto2($helper->uploadImg($form['Photo_3']->getData()))
+            ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
             ->setSeller($this->getUser())
             ->setIsSold(0)
             ->setIsPublished(1);
