@@ -6,4 +6,3 @@
 Pour lancer le projet :
 ````shell
 docker-compose up -d
-```'
