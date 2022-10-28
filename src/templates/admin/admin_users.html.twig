@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-    <section id="moderation_users">
+    <section class="section-admin">
         <h1>Admin</h1>
         <div class="container">
             <div class="row">
@@ -35,13 +35,11 @@
                                         <span class="badge badge-primary">{{ role }}</span>
                                     {% endfor %}
                                 </td>
-                                <td>
+                                <td id="admin_user_actions">
                                     <a href="{{ path('app_admin_user_id_edit', {'id': user.id}) }}" class="btn btn--primary">Editer</a>
                                     <a href="{{ path('app_admin_user_id_delete', {'id': user.id}) }}" class="danger">Supprimer</a>
                                 </td>
-
                             </tr>
-
                         {% else %}
                             <tr>
                                 <td colspan="5">Aucun utilisateur...</td>

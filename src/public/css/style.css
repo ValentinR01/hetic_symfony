@@ -80,6 +80,10 @@ h2{
     font-weight: 400;
 }
 
+.section-admin{
+    max-width: 90vw;
+}
+
 section{
     max-width: 820px;
     margin-left: auto;
