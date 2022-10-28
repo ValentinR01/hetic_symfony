@@ -47,7 +47,7 @@ class DealController extends AbstractController
         }
 
 
-        return $this->render('createProduct.html.twig', [
+        return $this->render('modifyProduct.twig', [
             'dealForm' => $form->createView()
         ]);
 
