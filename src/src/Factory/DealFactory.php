@@ -52,7 +52,7 @@ final class DealFactory extends ModelFactory
             'https://raitohetic.s3.eu-west-3.amazonaws.com/assiettes_fleurs.png',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/fauteuil-table-rotin.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/flutes.jpeg',
-            'https://raitohetic.s3.eu-west-3.amazonaws.com/lampes_chevet.jpeg',
+            'https://raitohetic.s3.eu-west-3.amazonaws.com/lampe_chevet.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/malle.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/mini-tourne-disque-vintage-scaled.jpeg',
             'https://raitohetic.s3.eu-west-3.amazonaws.com/miroir.jpeg',
