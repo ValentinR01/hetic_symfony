@@ -12,7 +12,7 @@
         <div id="personalInfos">
             <h1>Vos informations personnelles</h1>
             <form>
-                <img src="https://via.placeholder.com/200" alt="image profil vendeur">
+                <img src="{{ account.photo }}" alt="image profil vendeur">
                 <a href="">Changer l'image</a>
                 <label>Nom utilisateur</label>
                 <p>{{ account.pseudo }}</p>
@@ -35,7 +35,7 @@
                 {% for deal in deals %}
 
                     <div>
-                        <img src="https://via.placeholder.com/230x290" alt="image produit">
+                        <img src="{{ deal.MainPhoto }}" alt="image produit">
                         <p>{{ deal.title }}</p>
                         <p>50€</p>
                         {% if deal.isSold == 1 %}
@@ -72,7 +72,7 @@
 
                     <div class="carouselSellers__card">
                         <div class="sellerInfos">
-                            <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                            <img src="{{ seller.photo }}" alt="image profil vendeur">
                             <span>{{ seller.pseudo }}</span>
                             {% if pourcent %}
                                 <span>{{ pourcent|round }}% de recommendation</span>

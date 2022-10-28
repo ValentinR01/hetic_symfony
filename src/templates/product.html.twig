@@ -22,7 +22,7 @@
                     <p>{{ deal.price }}€</p>
                 </div>
                 <div class="sellerInfos">
-                    <img src="https://via.placeholder.com/60" alt="image profil vendeur">
+                    <img src="{{ deal.seller.photo }}" alt="image profil vendeur">
                     <span>{{ deal.seller }}</span>
                     {% if pourcent %}
                         <span>{{ pourcent|round }}% de recommendation</span>
@@ -114,7 +114,7 @@
 
                     <div>
                         <a href="{{ path('app_deal_show', {id: recommendation.id} ) }}">
-                            <img src="https://via.placeholder.com/230x290" alt="image produit">
+                            <img src="{{ recommendation.MainPhoto }}" alt="image produit">
                         </a>
                         <a href="{{ path('app_deal_show', {id: recommendation.id} ) }}">
                             <p>{{ recommendation.title }}</p>
