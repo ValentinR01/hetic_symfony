@@ -12,7 +12,9 @@
 
         <div id="productsInfos">
 
-            {% set pourcent = deal.seller.NbUserLikes/(deal.seller.NbUserDislikes + deal.seller.NbUserLikes) * 100 %}
+            {% if deal.seller.NbUserDislikes > 0 or deal.seller.NbUserLikes > 0  %}
+                {% set pourcent = deal.seller.NbUserLikes/(deal.seller.NbUserDislikes + deal.seller.NbUserLikes) * 100 %}
+            {% endif %}
 
             <div id="productsInfos__header">
                 <div>
@@ -22,8 +24,13 @@
                 <div class="sellerInfos">
                     <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                     <span>{{ deal.seller }}</span>
-                    <span>{{ pourcent|round }}% de recommendation</span>
-                    <!--<span>98% de recommendation</span>-->
+                    {% if pourcent %}
+                        <span>{{ pourcent|round }}% de recommendation</span>
+                    {% elseif deal.seller.NbUserDislikes > 0 and deal.seller.NbUserLikes == 0  %}
+                        <span>Vendeur mal noté</span>
+                    {% else %}
+                        <span>Pas de recommendation</span>
+                    {% endif %}
                 </div>
             </div>
 

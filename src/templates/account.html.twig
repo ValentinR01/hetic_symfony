@@ -66,13 +66,21 @@
                 </svg>
 
                 {% for seller in sellers %}
-                    {% set pourcent = seller.NbUserLikes/(seller.NbUserDislikes + seller.NbUserLikes) * 100 %}
+                    {% if seller.NbUserDislikes > 0 or seller.NbUserLikes > 0  %}
+                        {% set pourcent = seller.NbUserLikes/(seller.NbUserDislikes + seller.NbUserLikes) * 100 %}
+                    {% endif %}
 
                     <div class="carouselSellers__card">
                         <div class="sellerInfos">
                             <img src="https://via.placeholder.com/60" alt="image profil vendeur">
                             <span>{{ seller.pseudo }}</span>
-                            <span>{{ pourcent|round }}% de recommendation</span>
+                            {% if pourcent %}
+                                <span>{{ pourcent|round }}% de recommendation</span>
+                            {% elseif seller.NbUserDislikes > 0 and seller.NbUserLikes == 0  %}
+                                <span>Vendeur mal noté</span>
+                            {% else %}
+                                <span>Pas de recommendation</span>
+                            {% endif %}
                         </div>
                         <form action="{{ path('app_vote_sellers', {id: seller.id, slug: account.pseudo}) }}" method="post">
                             <button name="vote" value="like">
