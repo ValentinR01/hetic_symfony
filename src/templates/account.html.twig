@@ -11,19 +11,30 @@
     <section>
         <div id="personalInfos">
             <h1>Vos informations personnelles</h1>
-            <form>
+            {{ dump(app.user) }}
+            <img src="{{ app.user.Photo ? app.user.Photo : "../images/easter_jbob_par_defaut.jpeg" }}" alt="image profil vendeur">
+            <div id="infos">
+                <p>Pseudo : {{ app.user.Pseudo }}</p>
+                <p>Email : {{ app.user.Email }}</p>
+                {#<p>Likes : {{ app.user.Nb_User_Likes }}</p>#}
+            </div>
+            {#<form>
+                <img src="https://via.placeholder.com/200" alt="image profil vendeur">
+
                 {% if account.photo %}
                     <img src="{{ account.photo }}" alt="image profil vendeur">
                 {% else %}
                     <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" alt="icone utilsateur">
                 {% endif %}
+
                 <a href="">Changer l'image</a>
                 <label>Nom utilisateur</label>
                 <p>{{ account.pseudo }}</p>
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email">
                 <button type="submit" class="btn btn--primary">Valider</button>
-            </form>
+            </form>#}
+
         </div>
 
         <div id="personalProducts">

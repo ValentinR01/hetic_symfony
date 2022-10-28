@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Deal;
 use App\Entity\User;
 use App\Form\EditUserFormType;
+use App\Repository\DealRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,5 +58,20 @@ class AdminController extends AbstractController
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/admin/articles', name: 'app_admin_articles')]
+    public function admin_articles(DealRepository $dealRepository): Response
+    {
+        return $this->render('admin/admin_deals.html.twig', [
+            'articles' => $dealRepository->findAllDeals(),
+        ]);
+    }
+
+    #[Route('/admin/articles/{id}/delete', name: 'app_admin_article_id_delete')]
+    public function admin_articlesIdDelete(Deal $deal, DealRepository $rep): Response
+    {
+        $rep->remove($deal, true);
+        return $this->redirectToRoute('app_admin_articles');
     }
 }
