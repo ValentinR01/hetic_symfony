@@ -15,12 +15,15 @@ class BaseController extends AbstractController
      */
     public function index(DealRepository $repository): Response
     {
+
         $deals = $repository->findBy(
             array('Is_published' => 1),
             array('Date_publication' => 'DESC'),
-            3,
+            9,
             0
         );
+
+
         #dd($deals);
         return $this->render('index.html.twig', [
             'deals' => $deals,

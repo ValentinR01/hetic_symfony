@@ -1,74 +1,114 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/searchbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/sellerInfos.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/searchbar.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/sellerInfos.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/slider.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 {% endblock %}
 
 {% block body %}
-    <section id="homepage">
-        <div class="searchbar">
-            <input type="text" placeholder="Rechercher">
-            <a href="#">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23.4359 22.82L15.7919 15.176C17.2759 13.552 18.172 11.4241 18.172 9.072C18.172 4.06 14.0839 7.0945e-09 9.1 7.0945e-09C4.116 -0.000195293 0 4.03185 0 9.044C0 14.056 4.0881 18.116 9.072 18.116C11.424 18.116 13.58 17.2199 15.204 15.7359L22.848 23.3799L23.4359 22.82ZM0.8399 9.044C0.8399 4.50805 4.536 0.812 9.0719 0.812C13.6078 0.812 17.3039 4.5081 17.3039 9.044C17.3037 13.58 13.6078 17.304 9.0719 17.304C4.53595 17.304 0.8399 13.6079 0.8399 9.044Z" fill="black"/>
-                </svg>
-            </a>
-        </div>
+	<section id="homepage">
+		<div class="searchbar">
+			<input type="text" placeholder="Rechercher">
+			<a href="#">
+				<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M23.4359 22.82L15.7919 15.176C17.2759 13.552 18.172 11.4241 18.172 9.072C18.172 4.06 14.0839 7.0945e-09 9.1 7.0945e-09C4.116 -0.000195293 0 4.03185 0 9.044C0 14.056 4.0881 18.116 9.072 18.116C11.424 18.116 13.58 17.2199 15.204 15.7359L22.848 23.3799L23.4359 22.82ZM0.8399 9.044C0.8399 4.50805 4.536 0.812 9.0719 0.812C13.6078 0.812 17.3039 4.5081 17.3039 9.044C17.3037 13.58 13.6078 17.304 9.0719 17.304C4.53595 17.304 0.8399 13.6079 0.8399 9.044Z" fill="black"/>
+				</svg>
+			</a>
+		</div>
 
-        <div id="catProducts">
-            <a href="{{ path('app_deals_by_cat', {cat: 1} ) }}" id="catProducts__meublesImage">
-                <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/Hp/meuble.png" alt="image couverture meubles">
-            </a>
-            <a href="{{ path('app_deals_by_cat', {cat: 1} ) }}" id="catProducts__meublesTitle">
-                <p>Meubles</p>
-            </a>
-            <a href="{{ path('app_deals_by_cat', {cat: 2} ) }}" id="catProducts__vaisselleImage">
-                <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/Hp/vaisselle.png" alt="image couverture vaisselle">
-            </a>
-            <a href="{{ path('app_deals_by_cat', {cat: 2} ) }}" id="catProducts__vaisselleTitle">
-                <p>Vaisselle</p>
-            </a>
-            <a href="{{ path('app_deals_by_cat', {cat: 3} ) }}" id="catProducts__lumiereImage">
-                <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/Hp/lumiere.png" alt="image couverture lumière">
-            </a>
-            <a href="{{ path('app_deals_by_cat', {cat: 3} ) }}" id="catProducts__lumiereTitle">
-                <p>Lumière</p>
-            </a>
-            <a href="{{ path('app_deals_by_cat', {cat: 4} ) }}" id="catProducts__livresImage">
-                <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/Hp/divers.jpeg" alt="image couverture livres">
-            </a>
-            <a href="{{ path('app_deals_by_cat', {cat: 4} ) }}" id="catProducts__livresTitle">
-                <p>Divers</p>
-            </a>
-        </div>
+		<div id="catProducts">
+			<a href="{{ path('app_deals_by_cat', {cat: 1} ) }}" id="catProducts__meublesImage">
+				<img src="https://raitohetic.s3.eu-west-3.amazonaws.com/Hp/meuble.png" alt="image couverture meubles">
+			</a>
+			<a href="{{ path('app_deals_by_cat', {cat: 1} ) }}" id="catProducts__meublesTitle">
+				<p>Meubles</p>
+			</a>
+			<a href="{{ path('app_deals_by_cat', {cat: 2} ) }}" id="catProducts__vaisselleImage">
+				<img src="https://raitohetic.s3.eu-west-3.amazonaws.com/Hp/vaisselle.png" alt="image couverture vaisselle">
+			</a>
+			<a href="{{ path('app_deals_by_cat', {cat: 2} ) }}" id="catProducts__vaisselleTitle">
+				<p>Vaisselle</p>
+			</a>
+			<a href="{{ path('app_deals_by_cat', {cat: 3} ) }}" id="catProducts__lumiereImage">
+				<img src="https://raitohetic.s3.eu-west-3.amazonaws.com/Hp/lumiere.png" alt="image couverture lumière">
+			</a>
+			<a href="{{ path('app_deals_by_cat', {cat: 3} ) }}" id="catProducts__lumiereTitle">
+				<p>Lumière</p>
+			</a>
+			<a href="{{ path('app_deals_by_cat', {cat: 4} ) }}" id="catProducts__livresImage">
+				<img src="https://raitohetic.s3.eu-west-3.amazonaws.com/Hp/divers.jpeg" alt="image couverture livres">
+			</a>
+			<a href="{{ path('app_deals_by_cat', {cat: 4} ) }}" id="catProducts__livresTitle">
+				<p>Livres</p>
+			</a>
+		</div>
 
-        <div id="homepage__concept">
-            <p>
-                Notre objectif : permettre à chacun d’acheter et de vendre les plus belles pièces uniques de mobilier et de décoration de seconde main.
-                Nous voulons proposer aujourd’hui une alternative responsable aux enseignes de décoration industrielles en donnant une seconde vie à des milliers de meubles d’occasion.
-                <br>
-                Acheter Neverend c’est s’engager à limiter sa consommation de matière première et son nombre de déchets pour donner du sens à ses actions.
-                Les prix affichés sont fixés par les vendeurs et nous opérons en tant qu’intermédiaire et tiers de confiance pour garantir la qualité des produits.
-            </p>
-            <a href="{{ path('app_all_deals') }}" class="btn btn--primary">Toutes les annonces</a>
-        </div>
+		<div id="homepage__concept">
+			<p>
+				Notre objectif : permettre à chacun d’acheter et de vendre les plus belles pièces uniques de mobilier et de décoration de seconde main.
+																																																																																																																																																																																																																																																																																																												                Nous voulons proposer aujourd’hui une alternative responsable aux enseignes de décoration industrielles en donnant une seconde vie à des milliers de meubles d’occasion.
+				<br>
+				Acheter Neverend c’est s’engager à limiter sa consommation de matière première et son nombre de déchets pour donner du sens à ses actions.
+																																																																																																																																																																																																																																																																																																												                Les prix affichés sont fixés par les vendeurs et nous opérons en tant qu’intermédiaire et tiers de confiance pour garantir la qualité des produits.
+			</p>
+			<a href="{{ path('app_all_deals') }}" class="btn btn--primary">Toutes les annonces</a>
+		</div>
 
-        <div>
-            <h2>Nos nouveaux produits</h2>
+		<div>
+			<h2>Nos nouveaux produits</h2>
 
-            <div class="carousel">
-                <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_32_636)">
-                        <path d="M28.8904 32.5248C28.7169 32.6998 28.481 32.7989 28.2344 32.8002C27.9873 32.8025 27.7498 32.703 27.5785 32.5248L12.1103 17.056C11.9349 16.8828 11.836 16.6467 11.836 16.4001C11.836 16.1535 11.9349 15.9173 12.1103 15.7442L27.5785 0.272518C27.7503 0.0887967 27.9894 -0.017364 28.2409 -0.0214816C28.4925 -0.0255999 28.7348 0.0723264 28.9129 0.250325C29.0906 0.428101 29.1888 0.670622 29.1844 0.922081C29.1803 1.17353 29.0742 1.41262 28.8904 1.58447L14.0783 16.4001L28.8904 31.2122C29.0652 31.3859 29.1634 31.622 29.1634 31.8684C29.1634 32.1146 29.0652 32.3507 28.8904 32.5244L28.8904 32.5248Z" fill="black"/>
-                    </g>
-                </svg>
+			<div class="carousel" id="carousel">
+				<div class="carousel-wrapper">
+					<div class="carousel-content">
+						<div class="carousel-container">
+							{% for deal in deals %}
+								<div class="carousel-slide">
+									<div class="card">
+										<div class="card-inner">
+											<div class="card-image">
+												<a href="{{ path('app_deal_show', {id: deal.id} ) }}">
+													<img src="https://via.placeholder.com/230x290" alt="image produit">
+												</a>
+												<a href="{{ path('app_deal_show', {id: deal.id} ) }}">
+													<p>{{ deal.title }}</p>
+												</a>
+												<p>{{ deal.price }}€</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+						<div id="prev-slide" class="arrow arrow-left">
+							<svg width="41" height="41" viewbox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<g clip-path="url(#clip0_32_636)">
+									<path d="M28.8904 32.5248C28.7169 32.6998 28.481 32.7989 28.2344 32.8002C27.9873 32.8025 27.7498 32.703 27.5785 32.5248L12.1103 17.056C11.9349 16.8828 11.836 16.6467 11.836 16.4001C11.836 16.1535 11.9349 15.9173 12.1103 15.7442L27.5785 0.272518C27.7503 0.0887967 27.9894 -0.017364 28.2409 -0.0214816C28.4925 -0.0255999 28.7348 0.0723264 28.9129 0.250325C29.0906 0.428101 29.1888 0.670622 29.1844 0.922081C29.1803 1.17353 29.0742 1.41262 28.8904 1.58447L14.0783 16.4001L28.8904 31.2122C29.0652 31.3859 29.1634 31.622 29.1634 31.8684C29.1634 32.1146 29.0652 32.3507 28.8904 32.5244L28.8904 32.5248Z" fill="black"/>
+								</g>
+							</svg>
+						</div>
+						<div id="next-slide" class="arrow arrow-right">
+							<svg width="41" height="41" viewbox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<g clip-path="url(#clip0_32_633)">
+									<path d="M12.1096 32.5248C12.2831 32.6998 12.519 32.7989 12.7656 32.8002C13.0127 32.8025 13.2502 32.703 13.4215 32.5248L28.8897 17.056C29.0651 16.8828 29.164 16.6467 29.164 16.4001C29.164 16.1535 29.0651 15.9173 28.8897 15.7442L13.4215 0.272518C13.2497 0.0887967 13.0106 -0.017364 12.7591 -0.0214816C12.5075 -0.0255999 12.2652 0.0723264 12.0871 0.250325C11.9094 0.428101 11.8112 0.670622 11.8156 0.922081C11.8197 1.17353 11.9258 1.41262 12.1096 1.58447L26.9217 16.4001L12.1096 31.2122C11.9348 31.3859 11.8366 31.622 11.8366 31.8684C11.8366 32.1146 11.9348 32.3507 12.1096 32.5244L12.1096 32.5248Z" fill="black"/>
+								</g>
+							</svg>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-                {% for deal in deals %}
+	{% block javascripts %}
+		<script src="{{ asset('js/slider.js') }}"></script>
+	{% endblock %}
 
+<<<<<<< HEAD
+{% endblock %}
+=======
                     <div>
                         <a href="{{ path('app_deal_show', {id: deal.id} ) }}">
                             <img src="{{ deal.MainPhoto }}" alt="image produit">
@@ -91,3 +131,4 @@
     </section>
 
 {% endblock %}
+>>>>>>> main
