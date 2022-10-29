@@ -9,12 +9,33 @@
     width: 250px;
 }
 
+#productsGallery img{
+    width: 230px;
+    height: 290px;
+    object-fit: cover;
+}
+
 .productsGallery__single p:nth-child(2){
     margin: 5px 0;
 }
 
 .productsGallery__single p:nth-child(3){
     font-weight: 500;
+}
+
+.catMenu{
+    display: flex;
+    column-gap: 25px;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    padding-bottom: 50px;
+    justify-content: center;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+.catMenu a{
+    font-family: 'Amiko', sans-serif;
 }
 
 /* rajouter la pagination */

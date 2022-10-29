@@ -19,8 +19,17 @@
     padding: 15px;
 }
 
+#catProducts img{
+    object-fit: cover;
+}
+
 #catProducts__meublesImage{
     grid-row: 1 / span 3;
+}
+
+#catProducts__meublesImage img{
+    width: 410px;
+    height: 670px;
 }
 
 #catProducts__vaisselleImage{
@@ -28,14 +37,29 @@
     grid-row: 1/2;
 }
 
+#catProducts__vaisselleImage img{
+    width: 430px;
+    height: 300px;
+}
+
 #catProducts__lumiereImage{
     grid-column: 2 / span 1;
     grid-row: 3 / span 1;
 }
 
+#catProducts__lumiereImage img{
+    width: 205px;
+    height: 300px;
+}
+
 #catProducts__livresImage{
     grid-column: 3 / span 1;
     grid-row: 3 / span 1;
+}
+
+#catProducts__livresImage img{
+    width: 205px;
+    height: 300px;
 }
 
 #catProducts__meublesTitle{

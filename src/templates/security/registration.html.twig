@@ -2,18 +2,19 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/createAccount.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 {% endblock %}
 
 {% block body %}
-    <section id="createAccount">
+    <section id="registration">
         <h1>Créez votre compte</h1>
 
         {{ form_start(form) }}
         {{ form_row(form.Pseudo) }}
         {{ form_row(form.Email, {'attr': {'placeholder': 'never@end.com'}}) }}
         {{ form_row(form.Password) }}
-        <button type="submit" class="btn btn-primary">Créer mon compte</button>
+        <button type="submit" class="btn btn--primary">Créer mon compte</button>
         {{ form_end(form) }}
     </section>
 {% endblock %}

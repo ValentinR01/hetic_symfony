@@ -16,32 +16,16 @@ class UserController extends AbstractController
 {
     /**
      * @return Response
-     * @Route("/compte/{pseudo}", name="app_user_show")
+     * @Route("/account", name="app_user_show")
      */
-    public function account(UserRepository $repository, DealRepository $dealRepo, string $pseudo): Response
+    public function account(UserRepository $repository, DealRepository $dealRepo): Response
     {
-        $user = $repository->findOneBy(['Pseudo' => $pseudo]);
-        $deals = $dealRepo->findDealBySeller($user);
-        $sellers = $repository->findUserSellers($pseudo);
-
-        if (!$user) {
-            throw $this->createNotFoundException(
-                "Cet utilisateur n'existe pas..."
-            );
-        }
-
+        $user = $this->getUser();
         return $this->render('account.html.twig', [
-            'account' => $user, 'deals' => $deals, 'sellers' => $sellers
+            'user' => $user,
+            'deals' => $dealRepo->findDealBySeller($user),
+            'sellers' => $repository->findUserSellers($user),
         ]);
-    }
-
-    /**
-     * @Route("/creation-compte", name="app_create_account")
-     * @return Response
-     */
-    public function new(): Response
-    {
-        return $this->render('createAccount.html.twig');
     }
 
     /**

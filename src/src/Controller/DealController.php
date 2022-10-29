@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Controller\CommentFormType;
+use App\Helper\ImgHelper;
 
 class DealController extends AbstractController
 {
@@ -21,34 +23,33 @@ class DealController extends AbstractController
      * @Route("/annonce/{id}/modifier", name="app_edit_deal")
      * @return Response
      */
-    public function edit(Deal $deal, Request $request, EntityManagerInterface $entityManager): Response
+    public function edit(Deal $deal, Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
     {
         $form = $this->createForm(DealFormType::class, $deal);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
-            $deal->setDateCreation(new \DateTime());
-            dd($form->getData());
-
-            # TO CHANGE !
-            #$deal->setPhoto($helper->uploadImg($form->getData('')));
-            $deal->setSeller(new User());
-            $deal->setIsSold(0);
-            $deal->setIsPublished(1);
-            $deal->setDatePublication(new \DateTime());
-
-
+            $deal
+            ->setDateCreation(new \DateTime())
+            ->setDatePublication(new \DateTime())
+            ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
+            ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
+            ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
+            ->setSeller($this->getUser())
+            ->setIsSold(0)
+            ->setIsPublished(1);
 
             $entityManager->persist($deal);
             $entityManager->flush();
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
 
-        return $this->render('createProduct.html.twig', [
+
+        return $this->render('modifyProduct.twig', [
             'dealForm' => $form->createView()
         ]);
-
 
     }
 
@@ -57,27 +58,27 @@ class DealController extends AbstractController
      * @return Response
      */
 
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
     {
         $form = $this->createForm(DealFormType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
-            $deal->setProductStateId(1);
-            $deal->setDateCreation(new \DateTime());
-
-            # TO CHANGE !
-            $deal->setPhoto('photo');
-            $deal->setSeller('x');
-            $deal->setIsSold(0);
-            $deal->setIsPublished(1);
-            
+            $deal
+            ->setDateCreation(new \DateTime())
+            ->setDatePublication(new \DateTime())
+            ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
+            ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
+            ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
+            ->setSeller($this->getUser())
+            ->setIsSold(0)
+            ->setIsPublished(1);
 
             $entityManager->persist($deal);
             $entityManager->flush();
-
-            return $this->redirectToRoute('homepage');
+            $this->addFlash('success', 'Votre annonce a bien été créée !');
+            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
 
 
@@ -93,11 +94,12 @@ class DealController extends AbstractController
     public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id): Response
     {
         $cat = $deal->getCategory();
+        $comments = $commentRepository->findParentComments($id);
+        $responses = $commentRepository->findChildComments($id);
         $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
-        $comments = $commentRepository->findBy();
 
         return $this->render('product.html.twig', [
-            'deal' => $deal, 'recommendations' => $recommendations
+            'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations
         ]);
     }
 
@@ -105,11 +107,12 @@ class DealController extends AbstractController
      * @Route("/annonces", name="app_all_deals")
      * @return Response
      */
-    public function allProducts(DealRepository $repository): Response
+    public function allProducts(DealRepository $dealRepository, CategoryRepository $categoryRepository): Response
     {
-        $deals = $repository->findAll();
+        $deals = $dealRepository->findAll();
+        $cats = $categoryRepository->findAll();
         return $this->render('allProducts.html.twig', [
-            'deals' => $deals
+            'deals' => $deals, 'cats' => $cats
         ]);
     }
 
@@ -117,11 +120,12 @@ class DealController extends AbstractController
      * @Route("/annonces/{cat}", name="app_deals_by_cat")
      * @return Response
      */
-    public function productsByCat(DealRepository $repository, int $cat): Response
+    public function productsByCat(DealRepository $repository, CategoryRepository $categoryRepository, int $cat): Response
     {
         $deals = $repository->findBy(['Category' => $cat]);
+        $cats = $categoryRepository->findAll();
         return $this->render('allProducts.html.twig', [
-            'deals' => $deals
+            'deals' => $deals, 'cats' => $cats
         ]);
     }
 }

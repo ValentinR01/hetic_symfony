@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Form\EditUserFormType;
+use App\Form\RegistrationType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -44,12 +48,14 @@ class UserRepository extends ServiceEntityRepository
      */
     public function findUserSellers(string $value){
         return $this->createQueryBuilder('u')
-            ->andWhere('u.Bought_other_users_pseudo LIKE :val')
+            ->andWhere('u.Sold_to LIKE :val')
             ->setParameter('val', '%'.$value.'%')
             ->setMaxResults(2)
             ->getQuery()
             ->getResult();
     }
+
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

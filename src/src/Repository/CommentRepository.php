@@ -39,6 +39,35 @@ class CommentRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Comments[] Return an array of Product objects
+     */
+    public function findParentComments(int $id){
+
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.Deal = :id')
+            ->setParameter('id', $id)
+            ->andWhere('c.Parent is null')
+            ->orderBy('c.Date_creation', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Responses[] Return an array of Product objects
+     */
+    public function findChildComments(int $id){
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.Deal = :id')
+            ->setParameter('id', $id)
+            ->andWhere('r.Parent is not null')
+            ->orderBy('r.Date_creation', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Comment[] Returns an array of Comment objects
 //     */

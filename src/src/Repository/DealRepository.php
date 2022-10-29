@@ -72,6 +72,18 @@ class DealRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return findAllDeals[] Return all deals
+     */
+    public function findAllDeals(){
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.Is_sold = 0')
+            ->getQuery()
+            ->getResult();
+    }
+}
+
+
 //    /**
 //     * @return Deal[] Returns an array of Deal objects
 //     */
@@ -96,4 +108,3 @@ class DealRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}
