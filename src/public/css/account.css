@@ -1,10 +1,24 @@
 /* Personal Infos */
+#personalInfos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 5rem;
+}
+
+#infos {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+}
 
 #personalInfos img{
     border-radius: 100px;
     width: 200px;
     height: 200px;
     object-fit: cover;
+    margin-bottom: 2rem;
 }
 
 /* Personal Products */

@@ -9,21 +9,24 @@
 
 {% block body %}
     <section>
+        <h1>Vos informations personnelles</h1>
         <div id="personalInfos">
-            <h1>Vos informations personnelles</h1>
-            <form>
-                {% if account.photo %}
-                    <img src="{{ account.photo }}" alt="image profil vendeur">
-                {% else %}
-                    <img src="https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" alt="icone utilsateur">
-                {% endif %}
-                <a href="">Changer l'image</a>
-                <label>Nom utilisateur</label>
-                <p>{{ account.pseudo }}</p>
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email">
-                <button type="submit" class="btn btn--primary">Valider</button>
-            </form>
+            <img src="{{ app.user.Photo ? app.user.Photo : "../images/easter_jbob_par_defaut.jpeg" }}" alt="image profil vendeur">
+            <div id="infos">
+                <div id="name">
+                    <h3>Pseudo</h3>
+                    <p>{{ app.user.Pseudo }}</p>
+                </div>
+                <div id="email">
+                    <h3>Email</h3>
+                    <p>{{ app.user.Email }}</p>
+                </div>
+                <div id="rate">
+                    <h3>Taux de like</h3>
+                    <p>{{ rate_likes }}</p>
+                </div>
+            </div>
+            <a class="btn btn-primary" href="{{ path('app_user_edit') }}">Modifier mes informations</a>
         </div>
 
         <div id="personalProducts">

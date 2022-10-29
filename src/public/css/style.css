@@ -58,7 +58,7 @@ a, p, span, li, label, button, input, textarea, td, th {
     line-height: 21px;
 }
 
-h1, h2{
+h1, h2, h3, h4 {
     font-family: 'Amiko', sans-serif;
 }
 
@@ -78,6 +78,15 @@ h2{
     font-size: 25px;
     margin-bottom: 20px;
     font-weight: 400;
+}
+
+h3{
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+.section-admin{
+    max-width: 90vw;
 }
 
 section{

@@ -55,6 +55,14 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function user_rate(int $id){
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

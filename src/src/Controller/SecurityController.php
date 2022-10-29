@@ -20,7 +20,11 @@ class SecurityController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $form->getData()->getPseudo() !== null
+            && $form->getData()->getEmail() !== null && $form->getData()->getPassword() !== null) {
+            if (preg_match('/@end.com$/', $form->getData()->getEmail())) {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
             $hash = $encode->hashPassword($user, $user->getPassword());
             $user->setPassword($hash);
             $manager->persist($user);

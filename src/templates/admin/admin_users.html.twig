@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-    <section id="moderation_users">
+    <section class="section-admin">
         <h1>Admin</h1>
         <div class="container">
             <div class="row">
@@ -24,8 +24,6 @@
                         </thead>
                         <tbody>
                         {% for user in users %}
-                            {#{% if user.email == app.users %}
-                            {% endif %}#}
                             <tr>
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.pseudo }}</td>
@@ -35,13 +33,13 @@
                                         <span class="badge badge-primary">{{ role }}</span>
                                     {% endfor %}
                                 </td>
-                                <td>
-                                    <a href="{{ path('app_admin_user_id_edit', {'id': user.id}) }}" class="btn btn--primary">Editer</a>
-                                    <a href="{{ path('app_admin_user_id_delete', {'id': user.id}) }}" class="danger">Supprimer</a>
+                                <td id="admin_user_actions">
+                                    <a href="{{ path('app_admin_user_id_edit', {'id': user.id}) }}" class="btn btn--primary"
+                                       style="visibility: {{ user.id == app.user.id ? 'hidden' : 'visible' }}">Modifier</a>
+                                    <a href="{{ path('app_admin_user_id_delete', {'id': user.id}) }}" class="danger"
+                                       style="visibility: {{ user.id == app.user.id ? 'hidden' : 'visible' }}">Supprimer</a>
                                 </td>
-
                             </tr>
-
                         {% else %}
                             <tr>
                                 <td colspan="5">Aucun utilisateur...</td>

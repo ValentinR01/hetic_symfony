@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\CreateAccountType;
+use App\Form\EditUserFormType;
 use App\Repository\DealRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,33 +17,46 @@ class UserController extends AbstractController
 {
     /**
      * @return Response
-     * @Route("/compte/{pseudo}", name="app_user_show")
+     * @Route("/account", name="app_user_show")
      */
-    public function account(UserRepository $repository, DealRepository $dealRepo, string $pseudo): Response
+    public function account(UserRepository $repository, DealRepository $dealRepo): Response
     {
-        $user = $repository->findOneBy(['Pseudo' => $pseudo]);
-        $deals = $dealRepo->findDealBySeller($user);
-        $sellers = $repository->findUserSellers($pseudo);
-
-        if (!$user) {
-            throw $this->createNotFoundException(
-                "Cet utilisateur n'existe pas..."
-            );
-        }
-
-        return $this->render('account.html.twig', [
-            'account' => $user, 'deals' => $deals, 'sellers' => $sellers
+        $user = $this->getUser();
+        $likes = $user->getNbUserLikes();
+        $dislikes = $user->getNbUserDislikes();
+        $rate_likes = round( ($likes + $dislikes) ? $likes / ($likes + $dislikes) * 100 : 0).'%';
+        return $this->render('user/account.html.twig', [
+            'rate_likes' => $rate_likes,
+            'deals' => $dealRepo->findDealBySeller($user),
+            'sellers' => $repository->findUserSellers($user),
         ]);
     }
 
     /**
-     * @Route("/creation-compte", name="app_create_account")
      * @return Response
+     * @Route("/account/edit", name="app_user_edit")
      */
-    public function new(): Response
+    public function edit(Request $request, EntityManagerInterface $manager): Response
     {
-        return $this->render('createAccount.html.twig');
+        $user = $this->getUser();
+        $form = $this->createForm(EditUserFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $form->getData()->getPseudo() !== null
+            && $form->getData()->getEmail() !== null) {
+            $user
+                ->setPseudo($form->get('Pseudo')->getData())
+                ->setEmail($form->get('Email')->getData());
+            $manager->persist($user);
+            $manager->flush();
+
+        }
+        return $this->render('user/account_edit.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
+        ]);
     }
+
 
     /**
      * @Route("/account/{id}/vote/{slug}", name="app_vote_sellers")
