@@ -9,7 +9,6 @@
 
 {% block body %}
     <section>
-
         <div id="productsInfos">
 
             {% if deal.seller.NbUserDislikes > 0 or deal.seller.NbUserLikes > 0  %}
@@ -48,12 +47,15 @@
                 <p>Etat : {{ deal.ProductState }}</p>
                 <p>Date mise en ligne : {{ deal.DatePublication|date("d/m/Y") }}</p>
             </div>
+            
 
             <p>
                 {{ deal.description }}
             </p>
-            {% if deal.isSold == 0 %}
+            {% if deal.isSold == 0 and app.user != deal.seller %}
                 <a href="#" class="btn btn--primary">Acheter</a>
+            {% elseif app.user == deal.seller %}
+                <a href="{{'/annonce/' ~ deal.id ~ '/modifier'}}" class="btn btn--primary">Modifier mon annonce</a>
             {% else %}
                 <span class="btn btn--primary">Déjà vendu</span>
             {% endif %}
