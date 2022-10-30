@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section id="admin">
+        <h1>Admin</h1>
+        <div class="container">
+            <a class="btn btn--primary" href="{{ path('app_admin_users') }}">
+                Modération des utilisateurs
+            </a>
+            <a type="button" class="btn btn--primary" href="{{ path('app_admin_articles') }}">
+                Modération des articles
+            </a>
+        </div>
+
+    </section>
+{% endblock %}

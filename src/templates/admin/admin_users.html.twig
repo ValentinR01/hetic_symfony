@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section class="section-admin">
+        <h1>Admin</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Liste des utilisateurs</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.pseudo }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    {% for role in user.roles %}
+                                        <span class="badge badge-primary">{{ role }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td id="admin_user_actions">
+                                    <a href="{{ path('app_admin_user_id_edit', {'id': user.id}) }}" class="btn btn--primary"
+                                       style="visibility: {{ user.id == app.user.id ? 'hidden' : 'visible' }}">Modifier</a>
+                                    <a href="{{ path('app_admin_user_id_delete', {'id': user.id}) }}" class="danger"
+                                       style="visibility: {{ user.id == app.user.id ? 'hidden' : 'visible' }}">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">Aucun utilisateur...</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

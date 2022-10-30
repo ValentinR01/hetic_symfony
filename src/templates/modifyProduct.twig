@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/createProducts.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section id="createProduct">
+        <h1>Modifier votre annonce</h1>
+        {{ form_start(dealForm) }}
+        {{ form_widget(dealForm) }}
+        <button type="submit" class="btn btn--primary">Valider</button>
+        {{ form_end(dealForm) }}
+    </section>
+{% endblock %}

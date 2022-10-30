@@ -28,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\Email(
-        message: 'The email {{ value }} is not a valid email.',
+        message: "Votre email {{ value }} n'est pas valide",
     )]
     private ?string $Email = null;
 
@@ -42,16 +42,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $Photo = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 8,
+        max: 250,
+        minMessage: 'Votre mot de passe doit faire au moins {{ limit }} caractères',
+    )]
     private ?string $Password = null;
 
-    #[ORM\OneToMany(mappedBy: 'Seller', targetEntity: Deal::class)]
+    #[ORM\OneToMany(mappedBy: 'Seller', targetEntity: Deal::class, cascade:['remove'])]
     private Collection $Deals;
 
     #[ORM\OneToMany(mappedBy: 'Buyer', targetEntity: Deal::class)]
     private Collection $Purchases;
 
     #[ORM\Column(type: Types::JSON)]
-    private array $Roles = [];
+    private array $Roles = ["ROLE_USER"];
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Sold_to = null;

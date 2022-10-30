@@ -1,0 +1,51 @@
+.carousel-content {
+	max-width: 770px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.carousel-container {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	display: flex;
+	-webkit-overflow-scrolling: touch;
+	scroll-behavior: smooth;
+}
+.carousel-container::-webkit-scrollbar {
+	display: none;
+}
+
+.carousel-slide {
+	min-width: 33.33%;
+	scroll-snap-align: center;
+	position: relative;
+}
+
+.card-inner {
+	display: flex;
+	align-items: center;
+	padding: 0rem 0.5rem;
+}
+
+.card-image {
+	width: 230px;
+}
+
+.card-image img {
+	height: 290px;
+	width: 230px;
+	object-fit: cover;
+}
+
+.arrow {
+	display: flex;
+	position: absolute;
+	top: calc(50% - 30px);
+	cursor: pointer;
+}
+.arrow.arrow-right {
+	right: -4%;
+}
+.arrow.arrow-left {
+	left: -4%;
+}

@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Controller\\AdminController' => $baseDir . '/src/Controller/AdminController.php',
     'App\\Controller\\BaseController' => $baseDir . '/src/Controller/BaseController.php',
     'App\\Controller\\CommentController' => $baseDir . '/src/Controller/CommentController.php',
     'App\\Controller\\DealController' => $baseDir . '/src/Controller/DealController.php',
@@ -22,7 +23,9 @@ return array(
     'App\\Factory\\UserFactory' => $baseDir . '/src/Factory/UserFactory.php',
     'App\\Form\\CommentFormType' => $baseDir . '/src/Form/CommentFormType.php',
     'App\\Form\\DealFormType' => $baseDir . '/src/Form/DealFormType.php',
+    'App\\Form\\EditUserFormType' => $baseDir . '/src/Form/EditUserFormType.php',
     'App\\Form\\RegistrationType' => $baseDir . '/src/Form/RegistrationType.php',
+    'App\\Helper\\ImgHelper' => $baseDir . '/src/Helper/ImgHelper.php',
     'App\\Kernel' => $baseDir . '/src/Kernel.php',
     'App\\Repository\\CategoryRepository' => $baseDir . '/src/Repository/CategoryRepository.php',
     'App\\Repository\\CommentRepository' => $baseDir . '/src/Repository/CommentRepository.php',

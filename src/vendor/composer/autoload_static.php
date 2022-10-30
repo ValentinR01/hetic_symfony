@@ -494,6 +494,7 @@ class ComposerStaticInite951678541047fe3a82b647700e20fa4
     );
 
     public static $classMap = array (
+        'App\\Controller\\AdminController' => __DIR__ . '/../..' . '/src/Controller/AdminController.php',
         'App\\Controller\\BaseController' => __DIR__ . '/../..' . '/src/Controller/BaseController.php',
         'App\\Controller\\CommentController' => __DIR__ . '/../..' . '/src/Controller/CommentController.php',
         'App\\Controller\\DealController' => __DIR__ . '/../..' . '/src/Controller/DealController.php',
@@ -510,7 +511,9 @@ class ComposerStaticInite951678541047fe3a82b647700e20fa4
         'App\\Factory\\UserFactory' => __DIR__ . '/../..' . '/src/Factory/UserFactory.php',
         'App\\Form\\CommentFormType' => __DIR__ . '/../..' . '/src/Form/CommentFormType.php',
         'App\\Form\\DealFormType' => __DIR__ . '/../..' . '/src/Form/DealFormType.php',
+        'App\\Form\\EditUserFormType' => __DIR__ . '/../..' . '/src/Form/EditUserFormType.php',
         'App\\Form\\RegistrationType' => __DIR__ . '/../..' . '/src/Form/RegistrationType.php',
+        'App\\Helper\\ImgHelper' => __DIR__ . '/../..' . '/src/Helper/ImgHelper.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
         'App\\Repository\\CategoryRepository' => __DIR__ . '/../..' . '/src/Repository/CategoryRepository.php',
         'App\\Repository\\CommentRepository' => __DIR__ . '/../..' . '/src/Repository/CommentRepository.php',
@@ -5390,7 +5393,7 @@ class ComposerStaticInite951678541047fe3a82b647700e20fa4
         'Zenstruck\\Foundry\\Test\\ResetDatabase' => __DIR__ . '/..' . '/zenstruck/foundry/src/Test/ResetDatabase.php',
         'Zenstruck\\Foundry\\Test\\TestState' => __DIR__ . '/..' . '/zenstruck/foundry/src/Test/TestState.php',
         'Zenstruck\\Foundry\\ZenstruckFoundryBundle' => __DIR__ . '/..' . '/zenstruck/foundry/src/ZenstruckFoundryBundle.php',
-        '©' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
+        'ï¿½' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

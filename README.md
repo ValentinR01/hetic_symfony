@@ -1,26 +1,18 @@
-# Php-fpm-alpine x Nginx
-### Symfony | Docker
+# Never End 
+### Projet Symfony
 ##
 
-Avec MariaDB & MailDev
+La Team 🙌
+
+• [Chloé Doustalet](https://github.com/chloe-dst)         
+• [Mélissande Dizy](https://github.com/lestox)       
+• [Nassim Yazi](https://github.com/Nassim-dev)            
+• [Valentin Rejaunier](https://github.com/ValentinR01)   
+• [Doriane Farau](https://github.com/DFarau)  
 
 Pour lancer le projet :
-````shell
+```shell 
 docker-compose up -d
-docker exec symfony_docker composer create-project symfony/skeleton html
-sudo chown -R $USER ./
-````
+```
 
-Pensez ensuite à aller exécuter toutes vos commandes depuis l'intérieur du container.
-
-Par exemple :
-````shell
-cd symfony_project
-composer require orm
-````
-(Demandez à Composer de NE PAS créer une config Docker pour la database)
-
-Enfin, modifiez la config DB dans le fichier .env de Symfony :
-````shell
-DATABASE_URL=mysql://root:ChangeMeLater@db:3306/symfony_db?serverVersion=mariadb-10.7.1
-````
+A l'init de la stack, la création de la db, les migrations ainsi que les fixtures seront automatiquement start.

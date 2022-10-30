@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section class="section-admin">
+        <h1>Admin</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Liste des articles</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="thead_tr_admin">
+                                <th>Id</th>
+                                <th>Seller</th>
+                                <th>Category_Id</th>
+                                <th>Product_State_Id</th>
+                                <th>Price</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td>{{ article.id }}</td>
+                                <td>{{ article.Seller }}</td>
+                                <td>{{ article.Category }}</td>
+                                <td>{{ article.ProductState }}</td>
+                                <td>{{ article.Price }}€</td>
+                                <td>{{ article.Title }}</td>
+                                <td>{{ article.Description|length > 100 ? article.Description|slice(0, 100) ~ '...' : article.Description  }}</td>
+                                <td>
+                                    <a href="{{ path('app_admin_article_id_delete', {'id': article.id}) }}" class="danger">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                   {# {% else %}
+                        <p>Aucun article</p>
+                    {% endif %}#}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
