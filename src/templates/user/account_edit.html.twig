@@ -13,6 +13,7 @@
             {{ form_start(form) }}
             {{ form_row(form.Pseudo, {'value': user.pseudo }) }}
             {{ form_row(form.Email, {'value': user.email }) }}
+            {{ form_row(form.Photo, {'value': user.Photo }) }}
             <button type="submit" class="btn btn--primary">Valider la modification</button>
             <a class="btn" href="{{ path('app_user_show') }}">Annuler</a>
             {{ form_end(form) }}

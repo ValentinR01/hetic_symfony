@@ -37,11 +37,6 @@ class DealFormType extends AbstractType
             ->add('Photo_2', FileType::class, array('label' => 'Photo n°2'))
             ->add('Photo_3', FileType::class, array('label' => 'Photo n°3'));
         }
-
-        
-        //->add('Photo_2', FileType::class, array('label' => 'Photo n°2', 'mapped' => false))
-        //->add('Photo_3', FileType::class, array('label' => 'Photo n°3', 'mapped' => false));
-        
     }
 
     public function configureOptions(OptionsResolver $resolver): void
