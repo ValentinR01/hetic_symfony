@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Helper\ImgHelper;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
@@ -15,7 +16,7 @@ use App\Form\RegistrationType;
 class SecurityController extends AbstractController
 {
     #[Route('/registration', name: 'app_security_registration')]
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encode): Response
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encode, ImgHelper $helper): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -27,6 +28,7 @@ class SecurityController extends AbstractController
             }
             $hash = $encode->hashPassword($user, $user->getPassword());
             $user->setPassword($hash);
+            $user->setPhoto($helper->uploadImg($form['Photo']->getData()));
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('success', 'Votre compte a bien été créé ! Vous pouvez maintenant vous connecter.');

@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use App\Helper\ImgHelper;
 
 class UserController extends AbstractController
 {
@@ -32,7 +33,7 @@ class UserController extends AbstractController
      * @return Response
      * @Route("/account/edit", name="app_user_edit")
      */
-    public function edit(Request $request, EntityManagerInterface $manager): Response
+    public function edit(Request $request, EntityManagerInterface $manager, ImgHelper $helper): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(EditUserFormType::class, $user);
@@ -43,9 +44,13 @@ class UserController extends AbstractController
             $user
                 ->setPseudo($form->get('Pseudo')->getData())
                 ->setEmail($form->get('Email')->getData());
+            if ($form['Photo']->getData()){
+                $user->setPhoto($helper->uploadImg($form['Photo']->getData()));
+            }
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('success', 'Vos informations ont bien été modifiée.');
+            return $this->redirectToRoute('app_user_show');
 
         }
         return $this->render('user/account_edit.html.twig', [

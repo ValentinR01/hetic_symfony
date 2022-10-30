@@ -60,7 +60,7 @@
                             <a href="{{ path('app_deal_show', { id: deal.id }) }}">
                                 <p>{{ deal.title }}</p>
                             </a>
-                            <p>50€</p>
+                            <p>{{ deal.price }}€</p>
                             {% if deal.isSold == 1 %}
                                 <span class="carousel__tag">Vendu</span>
                             {% endif %}

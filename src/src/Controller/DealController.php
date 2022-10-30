@@ -19,7 +19,9 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Helper\ImgHelper;
 use App\Form\CommentFormType;
+use Symfony\Component\HttpFoundation\File\File;
 use App\Form\SearchDealType;
+
 
 class DealController extends AbstractController
 {
@@ -74,24 +76,28 @@ class DealController extends AbstractController
      */
     public function edit(Deal $deal, Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+      
         $form = $this->createForm(DealFormType::class, $deal);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
-            $deal
-                ->setDateCreation(new \DateTime())
-                ->setDatePublication(new \DateTime())
-                ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
-                ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
-                ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
-                ->setSeller($this->getUser())
-                ->setIsSold(0)
-                ->setIsPublished(1);
+            $deal->setDateUpdate(new \DateTime());
 
+            // Check if photos have been updated 
+            if ($form['MainPhoto']->getData()){
+                $deal->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()));
+            }
+            if ($form['Photo_2']->getData()){
+                $deal->setPhoto2($helper->uploadImg($form['Photo_2']->getData()));
+            }
+            if ($form['Photo_3']->getData()){
+                $deal->setPhoto3($helper->uploadImg($form['Photo_3']->getData()));
+            }
             $entityManager->persist($deal);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Votre annonce a bien été modifiée !');
             return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
 
