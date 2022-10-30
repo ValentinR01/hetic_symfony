@@ -14,8 +14,8 @@ use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Controller\CommentFormType;
 use App\Helper\ImgHelper;
+use App\Form\CommentFormType;
 
 class DealController extends AbstractController
 {
@@ -92,15 +92,30 @@ class DealController extends AbstractController
      * @Route("/annonce/{id}", name="app_deal_show")
      * @return Response
      */
-    public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id): Response
+    public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
+        // Retrieve Data
         $cat = $deal->getCategory();
         $comments = $commentRepository->findParentComments($id);
         $responses = $commentRepository->findChildComments($id);
         $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
 
+        // Create Comment Form
+        $commentForm =  $this->createForm(CommentFormType::class);
+        $commentForm->handleRequest($request);
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment = $commentForm->getData();
+            $comment
+            ->setUser($this->getUser())
+            ->setDeal($deal)
+            ->setDateCreation(new \DateTime());
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
+        }
+
         return $this->render('product.html.twig', [
-            'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations
+            'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations, 'commentForm' => $commentForm->createView()
         ]);
     }
 
@@ -139,4 +154,5 @@ class DealController extends AbstractController
             'deals' => $deals, 'cats' => $cats
         ]);
     }
+
 }

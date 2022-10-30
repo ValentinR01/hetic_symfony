@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="{{ asset('css/product.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sellerInfos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 {% endblock %}
 
 {% block body %}
     <section>
-
         <div id="productsInfos">
 
             {% if deal.seller.NbUserDislikes > 0 or deal.seller.NbUserLikes > 0  %}
@@ -48,12 +48,15 @@
                 <p>Etat : {{ deal.ProductState }}</p>
                 <p>Date mise en ligne : {{ deal.DatePublication|date("d/m/Y") }}</p>
             </div>
+            
 
             <p>
                 {{ deal.description }}
             </p>
-            {% if deal.isSold == 0 %}
+            {% if deal.isSold == 0 and app.user != deal.seller %}
                 <a href="#" class="btn btn--primary">Acheter</a>
+            {% elseif app.user == deal.seller %}
+                <a href="{{'/annonce/' ~ deal.id ~ '/modifier'}}" class="btn btn--primary">Modifier mon annonce</a>
             {% else %}
                 <span class="btn btn--primary">Déjà vendu</span>
             {% endif %}
@@ -106,8 +109,15 @@
             {% endif %}
 
             {% if deal.isSold == 0 %}
-                <a href="#" class="btn btn--primary">Poser une question</a>
+                <a class="btn btn--primary" id='askQuestionBtn' onClick='displayForm()'>Poser une question</a>
+                {{ form_start(commentForm, {'attr': {'id': 'commentForm'}}) }}
+                    <br><label>Votre question</label>
+                {{ form_widget(commentForm) }}
+                    <button type="submit" class="btn btn--primary">Envoyer</button>
+                {{ form_end(commentForm) }}
             {% endif %}
+
+            
 
             
 
@@ -145,4 +155,9 @@
         </div>
 
     </section>
+
+    {% block javascripts %}
+		<script src="{{ asset('js/form.js') }}"></script>
+	{% endblock %}
+
 {% endblock %}

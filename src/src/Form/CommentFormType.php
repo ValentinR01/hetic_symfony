@@ -11,9 +11,7 @@ class CommentFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Parent')
-            ->add('Deal')
-            ->add('Content', null, ['label' => 'Commentaire'])
+            ->add('Content', null, ['label' => false])
         ;
     }
 

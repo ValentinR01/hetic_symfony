@@ -46,3 +46,7 @@ select{
     gap: 1rem;
     margin-bottom: 2rem;
 }
+
+#commentForm{
+    display: none;
+}

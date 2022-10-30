@@ -49,6 +49,7 @@ class UserController extends AbstractController
                 ->setEmail($form->get('Email')->getData());
             $manager->persist($user);
             $manager->flush();
+            $this->addFlash('success', 'Vos informations ont bien été modifiée.');
 
         }
         return $this->render('user/account_edit.html.twig', [
