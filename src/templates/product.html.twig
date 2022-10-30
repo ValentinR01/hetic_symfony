@@ -82,6 +82,16 @@
                                 <br>
                                 {{ comment.Content }}
                             </p>
+                            {% if deal.isSold == 0 and app.user %}
+                                <a class="btn btn--primary" id='askQuestionAnswerBtn' onClick='displayForm()'>Répondre</a>
+                                {{ form_start(commentForm, {'attr': {'id': 'commentForm'}}) }}
+                                <br><label>Votre réponse</label>
+                                {{ form_widget(commentAnswerForm) }}
+                                <button type="submit" class="btn btn--primary">Envoyer</button>
+                                {{ form_end(commentForm) }}
+                            {% else %}
+                                <a class="btn btn--primary" href="{{ path('app_security_login')}}">Connectez vous pour poser une question</a>
+                            {% endif %}
                         </div>
 
                         {% for response in responses %}

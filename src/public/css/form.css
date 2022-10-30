@@ -63,3 +63,7 @@ select{
 #commentForm{
     display: none;
 }
+
+#commentAnswerForm{
+    display: none;
+}
