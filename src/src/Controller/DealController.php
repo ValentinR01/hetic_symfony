@@ -229,6 +229,8 @@ class DealController extends AbstractController
      */
     public function buyDeal(Deal $deal, UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $seller = $deal->getSeller();
         $user = $this->getUser();
         $buyers = $seller->getSoldTo();
