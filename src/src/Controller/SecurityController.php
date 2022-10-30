@@ -12,6 +12,7 @@ use App\Helper\ImgHelper;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
@@ -41,9 +42,12 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/login', name: 'app_security_login')]
-    public function login(): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('security/login.html.twig');
+        $error = $authenticationUtils->getLastAuthenticationError();
+        return $this->render('security/login.html.twig', [
+            'error' => $error,
+        ]);
     }
 
     #[Route('/logout', name: 'app_security_logout')]
