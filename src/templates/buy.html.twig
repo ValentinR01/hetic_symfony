@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <section>
+        <h1>Vous y êtes presque !</h1>
+        <p>
+            Nous venons de vous mettre en contact avec le vendeur de l'article pour le règlement.<br>
+            La garantie du produit vous est garanti 3 mois. </br>
+            Nous restons disponible par service client si besoin.
+        </p>
+        <br>
+        <a href="path('app_homepage')" class="btn btn--primary">Retour</a>
+    </section>
+
+{% endblock %}
