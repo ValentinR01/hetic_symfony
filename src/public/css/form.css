@@ -1,6 +1,6 @@
 input, textarea, select{
     display: block;
-    width: 100%;
+    width: 90%;
     border: 1px solid #5C5A5A;
     border-radius: 30px;
     padding: 10px 25px;
@@ -13,6 +13,19 @@ input, textarea, select{
 
 form{
     width: 50%;
+}
+
+#login form, #registration_form form, #createProduct form{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#login h4, #registration_form h4{
+    text-align: center;
+    margin-top: 10px;
+}
+
+#login button, #registration_form button, #createProduct button{
     margin-right: auto;
     margin-left: auto;
 }
