@@ -19,8 +19,45 @@ use App\Form\CommentFormType;
 
 class DealController extends AbstractController
 {
-    #ToTEST!!!!!
-    /**
+       /**
+     * @Route("/nouvelle-annonce", name="app_create_deal")
+     * @return Response
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
+    {
+        #Access Control
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        #Create Form
+        $form = $this->createForm(DealFormType::class);
+
+        #Handle Form Submit
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $deal = $form->getData();
+            $deal
+            ->setDateCreation(new \DateTime())
+            ->setDatePublication(new \DateTime())
+            ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
+            ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
+            ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
+            ->setSeller($this->getUser())
+            ->setIsSold(0)
+            ->setIsPublished(1);
+
+            $entityManager->persist($deal);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre annonce a bien été créée !');
+            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
+        }
+
+
+        return $this->render('createProduct.html.twig', [
+            'dealForm' => $form->createView()
+        ]);
+    }
+
+     /**
      * @Route("/annonce/{id}/modifier", name="app_edit_deal")
      * @return Response
      */
@@ -52,40 +89,6 @@ class DealController extends AbstractController
             'dealForm' => $form->createView()
         ]);
 
-    }
-
-    /**
-     * @Route("/nouvelle-annonce", name="app_create_deal")
-     * @return Response
-     */
-
-    public function new(Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
-    {
-        $form = $this->createForm(DealFormType::class);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $deal = $form->getData();
-            $deal
-            ->setDateCreation(new \DateTime())
-            ->setDatePublication(new \DateTime())
-            ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
-            ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
-            ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
-            ->setSeller($this->getUser())
-            ->setIsSold(0)
-            ->setIsPublished(1);
-
-            $entityManager->persist($deal);
-            $entityManager->flush();
-            $this->addFlash('success', 'Votre annonce a bien été créée !');
-            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
-        }
-
-
-        return $this->render('createProduct.html.twig', [
-            'dealForm' => $form->createView()
-        ]);
     }
 
     /**
