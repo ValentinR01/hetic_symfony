@@ -57,7 +57,6 @@ class UserController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/account/{id}/vote/{slug}", name="app_vote_sellers")
      * @return Response

@@ -38,6 +38,7 @@
 .carouselSellers{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .carouselSellers .sellerInfos{
@@ -51,6 +52,10 @@
 .carouselSellers__card{
     width: 45%;
     position: relative;
+}
+
+.carouselSellers__empty{
+    width: 100%;
 }
 
 .carouselSellers__card form {
