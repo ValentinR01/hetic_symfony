@@ -38,3 +38,11 @@ select{
 .groupFields{
     width: 50%;
 }
+
+#registration{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}

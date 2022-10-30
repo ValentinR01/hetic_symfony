@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\CreateAccountType;
+use App\Form\EditUserFormType;
 use App\Repository\DealRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,10 +22,38 @@ class UserController extends AbstractController
     public function account(UserRepository $repository, DealRepository $dealRepo): Response
     {
         $user = $this->getUser();
-        return $this->render('account.html.twig', [
-            'user' => $user,
+        $likes = $user->getNbUserLikes();
+        $dislikes = $user->getNbUserDislikes();
+        $rate_likes = round( ($likes + $dislikes) ? $likes / ($likes + $dislikes) * 100 : 0).'%';
+        return $this->render('user/account.html.twig', [
+            'rate_likes' => $rate_likes,
             'deals' => $dealRepo->findDealBySeller($user),
             'sellers' => $repository->findUserSellers($user),
+        ]);
+    }
+
+    /**
+     * @return Response
+     * @Route("/account/edit", name="app_user_edit")
+     */
+    public function edit(Request $request, EntityManagerInterface $manager): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(EditUserFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && $form->getData()->getPseudo() !== null
+            && $form->getData()->getEmail() !== null) {
+            $user
+                ->setPseudo($form->get('Pseudo')->getData())
+                ->setEmail($form->get('Email')->getData());
+            $manager->persist($user);
+            $manager->flush();
+
+        }
+        return $this->render('user/account_edit.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 
