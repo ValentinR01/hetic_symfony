@@ -13,5 +13,7 @@
         {{ form_widget(form) }}
         <button type="submit" class="btn btn--primary">Créer mon compte</button>
         {{ form_end(form) }}
+        <br>
+        <h4>Vous avez déjà un compte ? <a href="{{ path('app_security_login')}}">Connectez vous !</a></h>
     </section>
 {% endblock %}
