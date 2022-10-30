@@ -7,6 +7,8 @@ use App\Form\DealFormType;
 use App\Form\CreateAccountType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -156,6 +158,27 @@ class DealController extends AbstractController
         return $this->render('allProducts.html.twig', [
             'deals' => $deals, 'cats' => $cats
         ]);
+    }
+
+    /**
+     * @Route("/annonces/{id}/acheter", name="app_buy_deal")
+     * @return Response
+     */
+    public function buyDeal(Deal $deal, UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $seller = $deal->getSeller();
+        $user = $this->getUser();
+        $buyers = $seller->getSoldTo();
+        if ($buyers and str_contains($buyers, $user)) {
+            $seller->setSoldTo($user);
+        }elseif($buyers){
+            $seller->setSoldTo($buyers . ', ' . $user);
+        } else {
+            $seller->setSoldTo($user);
+        }
+        $entityManager->flush();
+
+        return $this->render('buy.html.twig');
     }
 
 }
