@@ -63,3 +63,7 @@ select{
 #commentForm{
     display: none;
 }
+
+#error_login{
+    color: #f84a4a;
+}

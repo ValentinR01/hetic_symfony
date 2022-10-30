@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/createAccount.css') }}">
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 {% endblock %}
@@ -9,7 +8,6 @@
 {% block body %}
     <section id="login">
         <h1>Connectez-vous</h1>
-
         <form method="post" action="{{ path('app_security_login') }}">
             <div class="form-group">
                 <label for="email">Email</label>
@@ -19,15 +17,16 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="_password" placeholder="********" class="form-control" required>
             </div>
-
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
-
+            {% if error %}
+                <h4 id="error_login">Mot de passe ou email invalide :(</h4>
+            {% endif %}
             <div class="form-group">
                 <button type="submit" class="btn btn--primary">Se connecter</button>
             </div>
         </form>
         <br>
-        <h4>Pas encore de compte ? <a href="{{ path('app_security_registration')}}">Créez en un !</a></h>
+        <h4>Pas encore de compte ? <a href="{{ path('app_security_registration')}}">Créez en un !</a></h4>
 
     </section>
 {% endblock %}
