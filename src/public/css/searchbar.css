@@ -19,7 +19,7 @@
 .search_button {
     background-image: url(../images/search-icon.svg);
     position: absolute;
-    top: 7px;
+    top: 5px;
     right: 27%;
     width: 34px;
     height: 31px;
@@ -28,6 +28,7 @@
     background-color: transparent;
     border: none;
     color:transparent;
+    cursor: pointer;
 }
 
 /* clears the 'X' from Internet Explorer */
