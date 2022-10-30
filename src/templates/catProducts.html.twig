@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/allProducts.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/searchbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section id="allProducts">
+        {{ form(form) }}
+
+        <div>
+            <ul class="catMenu">
+                {% for cat in cats %}
+                    <li>
+                        <a href="{{ path('app_deals_by_cat', { cat: cat.id }) }}"> {{ cat.label }} </a>
+                    </li>
+                {% endfor %}
+                <li>
+                    <a href="{{ path('app_all_deals') }}"> Tout </a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="productsGallery">
+            {% for deal in deals  %}
+                <div class="productsGallery__single">
+                    <a href="{{ path('app_deal_show', { id: deal.id }) }}"><img src="{{ deal.MainPhoto }}" alt="image produit"></a>
+                    <a href="{{ path('app_deal_show', { id: deal.id }) }}">
+                        <p>{{ deal.title }}</p>
+                    </a>
+                    <p>{{ deal.price }}€</p>
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% endblock %}

@@ -191,13 +191,13 @@ class DealController extends AbstractController
             9
         );
 
-        return $this->render('allProducts.html.twig', [
+        return $this->render('catProducts.html.twig', [
             'deals' => $pagination, 'cats' => $cats, 'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/annonce", name="app_all_deals")
+     * @Route("/annonces", name="app_all_deals")
      * @return Response
      */
     public function searchDeals(DealRepository $repository, Request $request, SessionInterface $session)

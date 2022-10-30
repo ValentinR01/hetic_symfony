@@ -8,20 +8,18 @@
 
 {% block body %}
 	<section id="allProducts">
-		{{ form(form) }}
 
-			<div id="productsGallery">
-				{% for deal in deals  %}
-					<div class="productsGallery__single">
-						<a href="{{ path('app_deal_show', { id: deal.id }) }}"><img src="{{ deal.MainPhoto }}" alt="image produit"></a>
-						<a href="{{ path('app_deal_show', { id: deal.id }) }}">
-							<p>{{ deal.title }}</p>
-						</a>
-						<p>{{ deal.price }}€</p>
-					</div>
-				{% endfor %}
-			</div>
-
+		<div id="productsGallery">
+			{% for deal in deals  %}
+				<div class="productsGallery__single">
+					<a href="{{ path('app_deal_show', { id: deal.id }) }}"><img src="{{ deal.MainPhoto }}" alt="image produit"></a>
+					<a href="{{ path('app_deal_show', { id: deal.id }) }}">
+						<p>{{ deal.title }}</p>
+					</a>
+					<p>{{ deal.price }}€</p>
+				</div>
+			{% endfor %}
+		</div>
 
 		</section>
 	{% endblock %}
