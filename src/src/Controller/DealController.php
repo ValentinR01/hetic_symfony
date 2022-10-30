@@ -183,13 +183,16 @@ class DealController extends AbstractController
         $deals = $repository->findByCategoryQueryBuilder(['Category' => $cat], $search);
         $cats = $categoryRepository->findAll();
 
+        $form = $this->createForm(SearchDealType::class);
+
         $pagination = $paginator->paginate(
             $deals,
             $request->query->getInt('page', 1),
             9
         );
+
         return $this->render('allProducts.html.twig', [
-            'deals' => $pagination, 'cats' => $cats
+            'deals' => $pagination, 'cats' => $cats, 'form' => $form->createView()
         ]);
     }
 
