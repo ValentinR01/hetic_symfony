@@ -28,11 +28,11 @@
                 <div id="rate">
                     <h3>Taux de like</h3>
                     {% if note %}
-                        <p>{{ note|round }}% de recommendation</p>
+                        <p>{{ note|round }}% de recommandation</p>
                     {% elseif app.user.NbUserDislikes > 0 and app.user.NbUserLikes == 0  %}
                         <p>Vendeur mal noté</p>
                     {% else %}
-                        <p>Pas encore de recommendation</p>
+                        <p>Pas encore de recommandation</p>
                     {% endif %}
                 </div>
             </div>
@@ -106,11 +106,11 @@
                                 {% endif %}
                                 <span>{{ seller.pseudo }}</span>
                                 {% if pourcent %}
-                                    <span>{{ pourcent|round }}% de recommendation</span>
+                                    <span>{{ pourcent|round }}% de recommandation</span>
                                 {% elseif seller.NbUserDislikes > 0 and seller.NbUserLikes == 0  %}
                                     <span>Vendeur mal noté</span>
                                 {% else %}
-                                    <span>Pas de recommendation</span>
+                                    <span>Pas de recommandation</span>
                                 {% endif %}
                             </div>
                             <form action="{{ path('app_vote_sellers', {id: seller.id, slug: app.user.pseudo}) }}" method="post">
