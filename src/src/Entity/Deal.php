@@ -7,6 +7,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DealRepository::class)]
+#[ORM\Index(name: 'deal', columns: ['title', 'description'], flags: ['fulltext'])]
+
 class Deal
 {
     #[ORM\Id]
@@ -226,7 +228,6 @@ class Deal
         $this->Product_state = $Product_state;
 
         return $this;
-
     }
 
     public function getMainPhoto(): ?string
@@ -264,9 +265,9 @@ class Deal
 
         return $this;
     }
-    
-    public function __toString(): string {
-        return $this->Product_state;
 
+    public function __toString(): string
+    {
+        return $this->Product_state;
     }
 }

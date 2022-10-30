@@ -37,5 +37,7 @@
 .catMenu a{
     font-family: 'Amiko', sans-serif;
 }
-
+.product-result { 
+    margin-bottom: 30px;
+}
 /* rajouter la pagination */

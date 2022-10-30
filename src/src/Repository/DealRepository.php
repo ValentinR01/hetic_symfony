@@ -45,7 +45,8 @@ class DealRepository extends ServiceEntityRepository
     /**
      * @return Deals[] Return an array of Product objects
      */
-    public function findDealBySeller(User $value){
+    public function findDealBySeller(User $value)
+    {
         return $this->createQueryBuilder('p')
             ->andWhere('p.Seller = :val')
             ->setParameter('val', $value)
@@ -59,13 +60,13 @@ class DealRepository extends ServiceEntityRepository
      * @param string|null $search
      * @return QueryBuilder
      */
-    public function findAllQueryBuilder(string $search = null) : QueryBuilder
+    public function findAllQueryBuilder(string $search = null): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('m');
 
         if ($search !== null) {
-           $queryBuilder
-               ->setParameter('searchTerm', '%' . $search .'%');
+            $queryBuilder
+                ->setParameter('searchTerm', '%' . $search . '%');
         }
 
         return $queryBuilder;
@@ -74,7 +75,8 @@ class DealRepository extends ServiceEntityRepository
     /**
      * @return Recommendations[] Return an array of Product objects
      */
-    public function findRecommendationsByDeal(int $id, Category $cat){
+    public function findRecommendationsByDeal(int $id, Category $cat)
+    {
 
         return $this->createQueryBuilder('r')
             ->andWhere('r.id != :id')
@@ -92,11 +94,27 @@ class DealRepository extends ServiceEntityRepository
     /**
      * @return findAllDeals[] Return all deals
      */
-    public function findAllDeals(){
+    public function findAllDeals()
+    {
         return $this->createQueryBuilder('p')
             ->andWhere('p.Is_sold = 0')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @return void
+     */
+    public function search($words)
+    {
+        $query = $this->createQueryBuilder('a');
+        //$query->where('a.Is_sold = 0');
+        if ($words != null) {
+            $query->andWhere('MATCH_AGAINST(a.Title, a.Description) AGAINST(:words boolean)>0')
+                ->setParameter('words', $words);
+        }
+
+        return $query->getQuery()->getResult();
     }
 }
 
