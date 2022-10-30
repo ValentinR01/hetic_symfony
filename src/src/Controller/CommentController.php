@@ -19,23 +19,23 @@ class CommentController extends AbstractController
      * @Route("/comment", name="app_create_comment")
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $entityManager)
+    public function new(Request $request, Deal $deal, EntityManagerInterface $entityManager, $form)
     {
-        $form = $this->createForm(CommentFormType::class);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
-
-            #$comment->setUser = security->getUser();
+            $comment
+            ->setUser($this->getUser())
+            ->setDeal($deal)
+            ->setDateCreation(new \DateTime());
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
 
 
-        return $form->createView();
+        return $form;
     }
 
 

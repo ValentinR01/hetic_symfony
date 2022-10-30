@@ -91,11 +91,23 @@ class DealController extends AbstractController
      * @Route("/annonce/{id}", name="app_deal_show")
      * @return Response
      */
-    public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id): Response
+    public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
         $cat = $deal->getCategory();
         $comments = $commentRepository->findParentComments($id);
         $commentForm =  $this->createForm(CommentFormType::class);
+        $commentForm->handleRequest($request);
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment = $commentForm->getData();
+            $comment
+            ->setUser($this->getUser())
+            ->setDeal($deal)
+            ->setDateCreation(new \DateTime());
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
+        }
         $responses = $commentRepository->findChildComments($id);
         $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
 
