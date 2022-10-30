@@ -109,7 +109,13 @@
 
             {% if deal.isSold == 0 %}
                 <a href="#" class="btn btn--primary">Poser une question</a>
+                {{ form_start(commentForm) }}
+                {{ form_widget(commentForm) }}
+                    <button type="submit" class="btn btn--primary">Envoyer</button>
+                {{ form_end(commentForm) }}
             {% endif %}
+
+            
 
             
 

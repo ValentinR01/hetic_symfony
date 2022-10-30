@@ -13,8 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Controller\CommentFormType;
 use App\Helper\ImgHelper;
+use App\Form\CommentFormType;
 
 class DealController extends AbstractController
 {
@@ -95,11 +95,12 @@ class DealController extends AbstractController
     {
         $cat = $deal->getCategory();
         $comments = $commentRepository->findParentComments($id);
+        $commentForm =  $this->createForm(CommentFormType::class);
         $responses = $commentRepository->findChildComments($id);
         $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
 
         return $this->render('product.html.twig', [
-            'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations
+            'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations, 'commentForm' => $commentForm->createView()
         ]);
     }
 

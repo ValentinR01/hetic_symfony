@@ -19,7 +19,7 @@ class CommentController extends AbstractController
      * @Route("/comment", name="app_create_comment")
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(CommentFormType::class);
 
@@ -28,13 +28,6 @@ class CommentController extends AbstractController
             $comment = $form->getData();
 
             #$comment->setUser = security->getUser();
-            
-
-            dd($comment);
-            
-            
-
-
             $entityManager->persist($comment);
             $entityManager->flush();
 
@@ -42,9 +35,7 @@ class CommentController extends AbstractController
         }
 
 
-        return $this->render('createProduct.html.twig', [
-            'commentForm' => $form->createView()
-        ]);
+        return $form->createView();
     }
 
 
