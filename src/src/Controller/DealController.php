@@ -7,6 +7,8 @@ use App\Form\DealFormType;
 use App\Form\CreateAccountType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +25,9 @@ class DealController extends AbstractController
 {
     /**
      * @Route("/nouvelle-annonce", name="app_create_deal")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param ImgHelper $helper
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
@@ -61,6 +66,10 @@ class DealController extends AbstractController
 
     /**
      * @Route("/annonce/{id}/modifier", name="app_edit_deal")
+     * @param Deal $deal
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param ImgHelper $helper
      * @return Response
      */
     public function edit(Deal $deal, Request $request, EntityManagerInterface $entityManager, ImgHelper $helper): Response
@@ -94,6 +103,12 @@ class DealController extends AbstractController
 
     /**
      * @Route("/annonce/{id}", name="app_deal_show")
+     * @param Deal $deal
+     * @param DealRepository $dealRepository
+     * @param CommentRepository $commentRepository
+     * @param int $id
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
     public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
@@ -126,6 +141,7 @@ class DealController extends AbstractController
     /**
      * @Route("/annonces", name="app_all_deals")
      * @param DealRepository $repository
+     * @param CategoryRepository $categoryRepository
      * @param Request $request
      * @param PaginatorInterface $paginator
      * @return Response
@@ -148,14 +164,26 @@ class DealController extends AbstractController
 
     /**
      * @Route("/annonces/{cat}", name="app_deals_by_cat")
+     * @param DealRepository $repository
+     * @param CategoryRepository $categoryRepository
+     * @param int $cat
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function productsByCat(DealRepository $repository, CategoryRepository $categoryRepository, int $cat): Response
+    public function productsByCat(DealRepository $repository, CategoryRepository $categoryRepository, int $cat, Request $request, PaginatorInterface $paginator): Response
     {
-        $deals = $repository->findBy(['Category' => $cat]);
+        $search = $request->query->get('q');
+        $deals = $repository->findByCategoryQueryBuilder(['Category' => $cat], $search);
         $cats = $categoryRepository->findAll();
+
+        $pagination = $paginator->paginate(
+            $deals,
+            $request->query->getInt('page', 1),
+            9
+        );
         return $this->render('allProducts.html.twig', [
-            'deals' => $deals, 'cats' => $cats
+            'deals' => $pagination, 'cats' => $cats
         ]);
     }
 
@@ -181,4 +209,29 @@ class DealController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+     * @Route("/annonces/{id}/acheter", name="app_buy_deal")
+     * @param Deal $deal
+     * @param UserRepository $userRepository
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function buyDeal(Deal $deal, UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $seller = $deal->getSeller();
+        $user = $this->getUser();
+        $buyers = $seller->getSoldTo();
+        if ($buyers and str_contains($buyers, $user)) {
+            $seller->setSoldTo($user);
+        }elseif($buyers){
+            $seller->setSoldTo($buyers . ', ' . $user);
+        } else {
+            $seller->setSoldTo($user);
+        }
+        $entityManager->flush();
+
+        return $this->render('buy.html.twig');
+    }
+
 }

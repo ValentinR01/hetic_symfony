@@ -73,6 +73,25 @@ class DealRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param array $cat
+     * @param string|null $search
+     * @return QueryBuilder
+     */
+    public function findByCategoryQueryBuilder(array $cat, string $search = null) : QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('n')
+            ->andWhere('n.Category = :cat')
+            ->setParameter('cat', $cat);
+
+        if ($search !== null) {
+            $queryBuilder
+                ->setParameter('searchTerm', '%' . $search .'%');
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
      * @return Recommendations[] Return an array of Product objects
      */
     public function findRecommendationsByDeal(int $id, Category $cat)

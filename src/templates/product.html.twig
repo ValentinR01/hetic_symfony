@@ -11,7 +11,7 @@
 {% block body %}
     <section>
         <div id="productsInfos">
-
+            {% set pourcent = null %}
             {% if deal.seller.NbUserDislikes > 0 or deal.seller.NbUserLikes > 0  %}
                 {% set pourcent = deal.seller.NbUserLikes/(deal.seller.NbUserDislikes + deal.seller.NbUserLikes) * 100 %}
             {% endif %}
@@ -29,11 +29,11 @@
                     {% endif %}
                     <span>{{ deal.seller }}</span>
                     {% if pourcent %}
-                        <span>{{ pourcent|round }}% de recommendation</span>
+                        <span>{{ pourcent|round }}% de recommandation</span>
                     {% elseif deal.seller.NbUserDislikes > 0 and deal.seller.NbUserLikes == 0  %}
                         <span>Vendeur mal noté</span>
                     {% else %}
-                        <span>Pas de recommendation</span>
+                        <span>Pas de recommandation</span>
                     {% endif %}
                 </div>
             </div>
@@ -48,13 +48,12 @@
                 <p>Etat : {{ deal.ProductState }}</p>
                 <p>Date mise en ligne : {{ deal.DatePublication|date("d/m/Y") }}</p>
             </div>
-            
 
             <p>
                 {{ deal.description }}
             </p>
             {% if deal.isSold == 0 and app.user != deal.seller %}
-                <a href="#" class="btn btn--primary">Acheter</a>
+                <a href="{{ path('app_buy_deal', { id: deal.id }) }}" class="btn btn--primary">Acheter</a>
             {% elseif app.user == deal.seller %}
                 <a href="{{'/annonce/' ~ deal.id ~ '/modifier'}}" class="btn btn--primary">Modifier mon annonce</a>
             {% else %}
@@ -119,10 +118,6 @@
             {% else %}
                 <a class="btn btn--primary" href="{{ path('app_security_login')}}">Connectez vous pour poser une question</a>
             {% endif %}
-
-            
-
-            
 
         </div>
 
