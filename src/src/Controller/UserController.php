@@ -22,11 +22,7 @@ class UserController extends AbstractController
     public function account(UserRepository $repository, DealRepository $dealRepo): Response
     {
         $user = $this->getUser();
-        $likes = $user->getNbUserLikes();
-        $dislikes = $user->getNbUserDislikes();
-        $rate_likes = round( ($likes + $dislikes) ? $likes / ($likes + $dislikes) * 100 : 0).'%';
         return $this->render('user/account.html.twig', [
-            'rate_likes' => $rate_likes,
             'deals' => $dealRepo->findDealBySeller($user),
             'sellers' => $repository->findUserSellers($user),
         ]);

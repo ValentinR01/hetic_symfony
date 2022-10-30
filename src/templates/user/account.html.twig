@@ -11,7 +11,7 @@
     <section>
         <h1>Vos informations personnelles</h1>
         <div id="personalInfos">
-            <img src="{{ app.user.Photo ? app.user.Photo : "../images/easter_jbob_par_defaut.jpeg" }}" alt="image profil vendeur">
+            <img src="{{ app.user.Photo ? app.user.Photo : "https://raitohetic.s3.eu-west-3.amazonaws.com/profil/user_default.jpeg" }}" alt="image profil vendeur">
             <div id="infos">
                 <div id="name">
                     <h3>Pseudo</h3>
@@ -21,9 +21,19 @@
                     <h3>Email</h3>
                     <p>{{ app.user.Email }}</p>
                 </div>
+                {% set note = null %}
+                {% if app.user.NbUserDislikes > 0 or app.user.NbUserLikes > 0  %}
+                    {% set note = app.user.NbUserLikes/(app.user.NbUserDislikes + app.user.NbUserLikes) * 100 %}
+                {% endif %}
                 <div id="rate">
                     <h3>Taux de like</h3>
-                    <p>{{ rate_likes }}</p>
+                    {% if note %}
+                        <p>{{ note|round }}% de recommendation</p>
+                    {% elseif app.user.NbUserDislikes > 0 and app.user.NbUserLikes == 0  %}
+                        <p>Vendeur mal noté</p>
+                    {% else %}
+                        <p>Pas encore de recommendation</p>
+                    {% endif %}
                 </div>
             </div>
             <a class="btn btn-primary" href="{{ path('app_user_edit') }}">Modifier mes informations</a>
@@ -73,6 +83,7 @@
 
                 {% if sellers %}
                     {% for seller in sellers %}
+                        {% set pourcent = null %}
                         {% if seller.NbUserDislikes > 0 or seller.NbUserLikes > 0  %}
                             {% set pourcent = seller.NbUserLikes/(seller.NbUserDislikes + seller.NbUserLikes) * 100 %}
                         {% endif %}

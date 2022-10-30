@@ -11,7 +11,7 @@
 {% block body %}
     <section>
         <div id="productsInfos">
-
+            {% set pourcent = null %}
             {% if deal.seller.NbUserDislikes > 0 or deal.seller.NbUserLikes > 0  %}
                 {% set pourcent = deal.seller.NbUserLikes/(deal.seller.NbUserDislikes + deal.seller.NbUserLikes) * 100 %}
             {% endif %}
