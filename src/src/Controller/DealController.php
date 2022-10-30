@@ -93,8 +93,13 @@ class DealController extends AbstractController
      */
     public function show(Deal $deal, DealRepository $dealRepository, CommentRepository $commentRepository, int $id, Request $request, EntityManagerInterface $entityManager): Response
     {
+        // Retrieve Data
         $cat = $deal->getCategory();
         $comments = $commentRepository->findParentComments($id);
+        $responses = $commentRepository->findChildComments($id);
+        $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
+
+        // Create Comment Form
         $commentForm =  $this->createForm(CommentFormType::class);
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
@@ -105,11 +110,8 @@ class DealController extends AbstractController
             ->setDateCreation(new \DateTime());
             $entityManager->persist($comment);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
         }
-        $responses = $commentRepository->findChildComments($id);
-        $recommendations = $dealRepository->findRecommendationsByDeal($id, $cat);
 
         return $this->render('product.html.twig', [
             'deal' => $deal, 'comments' => $comments, 'responses' => $responses, 'recommendations' => $recommendations, 'commentForm' => $commentForm->createView()
@@ -141,4 +143,5 @@ class DealController extends AbstractController
             'deals' => $deals, 'cats' => $cats
         ]);
     }
+
 }
