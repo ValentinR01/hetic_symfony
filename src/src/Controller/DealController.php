@@ -210,6 +210,7 @@ class DealController extends AbstractController
         ]);
     }
 
+    /**
      * @Route("/annonces/{id}/acheter", name="app_buy_deal")
      * @param Deal $deal
      * @param UserRepository $userRepository
@@ -224,7 +225,7 @@ class DealController extends AbstractController
         $buyers = $seller->getSoldTo();
         if ($buyers and str_contains($buyers, $user)) {
             $seller->setSoldTo($user);
-        }elseif($buyers){
+        } elseif ($buyers) {
             $seller->setSoldTo($buyers . ', ' . $user);
         } else {
             $seller->setSoldTo($user);
@@ -233,5 +234,4 @@ class DealController extends AbstractController
 
         return $this->render('buy.html.twig');
     }
-
 }
