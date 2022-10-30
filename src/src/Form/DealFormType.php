@@ -31,6 +31,11 @@ class DealFormType extends AbstractType
             ->add('MainPhoto', FileType::class, ['label' => 'Nouvelle photo principale (optionnel)', 'required' => false, 'mapped' => false])
             ->add('Photo_2', FileType::class, ['label' => 'Nouvelle photo n°2 (optionnel)', 'required' => false, 'mapped' => false])
             ->add('Photo_3', FileType::class, ['label' => 'Nouvelle photo n°3 (optionnel)', 'required' => false, 'mapped' => false]);
+        } else {
+            $builder
+            ->add('MainPhoto', FileType::class, ['label' => 'Photo principale'])
+            ->add('Photo_2', FileType::class, array('label' => 'Photo n°2'))
+            ->add('Photo_3', FileType::class, array('label' => 'Photo n°3'));
         }
 
         
