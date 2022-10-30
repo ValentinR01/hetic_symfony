@@ -9,27 +9,36 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ImgHelper 
 {
+    private string $kernelDir;
     private string $imagesDir;
 
     public function __construct(ParameterBagInterface $params){
-        $this->imagesDir = $params->get('kernel.project_dir').'/public/images/';
+        $this->kernelDir = $params->get('kernel.project_dir');
+        $this->imagesDir = '/public/images/';
+    }
+
+    public function getKernelDirectory(): string{
+        return $this->kernelDir;
     }
     
 
-    public function uploadImg(UploadedFile $uploadedFile): string
+    public function uploadImg(UploadedFile $uploadedFile, string $existingFileName = null): string
     {
         $uploadedExtensionChecked = $uploadedFile->guessExtension();
 
         // Accept Only Img Types JPEG & PNG
         if ($uploadedExtensionChecked != ('jpeg' or 'png')){
-            return new Exception($message = "Ce fichier n'est ni un jpeg, ni un png.");
+            throw new Exception($message = "Ce fichier n'est ni un jpeg, ni un png.");
         }
 
         // Generate random image name to prevent strangeness
         $fileName = uniqid() . '.' . $uploadedExtensionChecked;
 
         // Deplace file from tempory to definitive direction
-        $uploadedFile->move($this->imagesDir, $fileName);
+        $uploadedFile->move($this->kernelDir . $this->imagesDir, $fileName);
+
+        // Delete old image
+        //$this->defaultStorage->delete($this->kernelDir . '/public' . $existingFileName);
 
         return "/images/".$fileName;
     }

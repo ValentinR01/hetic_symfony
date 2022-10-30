@@ -14,6 +14,7 @@ class EditUserFormType extends AbstractType
         $builder
             ->add('Pseudo')
             ->add('Email')
+            ->add('Photo')
             /*->add('Roles')*/
         ;
     }
