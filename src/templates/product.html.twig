@@ -29,11 +29,11 @@
                     {% endif %}
                     <span>{{ deal.seller }}</span>
                     {% if pourcent %}
-                        <span>{{ pourcent|round }}% de recommendation</span>
+                        <span>{{ pourcent|round }}% de recommandation</span>
                     {% elseif deal.seller.NbUserDislikes > 0 and deal.seller.NbUserLikes == 0  %}
                         <span>Vendeur mal noté</span>
                     {% else %}
-                        <span>Pas de recommendation</span>
+                        <span>Pas de recommandation</span>
                     {% endif %}
                 </div>
             </div>
