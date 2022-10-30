@@ -54,9 +54,12 @@
                     {% for deal in deals %}
 
                         <div>
-
-                            <img src="{{ deal.MainPhoto }}" alt="image produit">
-                            <p>{{ deal.title }}</p>
+                            <a href="{{ path('app_deal_show', { id: deal.id }) }}">
+                                <img src="{{ deal.MainPhoto }}" alt="image produit">
+                            </a>
+                            <a href="{{ path('app_deal_show', { id: deal.id }) }}">
+                                <p>{{ deal.title }}</p>
+                            </a>
                             <p>50€</p>
                             {% if deal.isSold == 1 %}
                                 <span class="carousel__tag">Vendu</span>
