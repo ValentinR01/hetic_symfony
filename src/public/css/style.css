@@ -239,6 +239,24 @@ footer ul li:first-child {
     }
 }
 
+/* Pagination */
+
+.pagination{
+    text-align: center;
+    margin-top: 50px;
+    font-size: 14px;
+}
+
+.pagination span{
+    margin: 5px;
+    font-family: 'Amiko';
+}
+
+.pagination .current {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
 /* Flash Message */
 .alert-success {
     color: white;
