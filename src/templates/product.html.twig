@@ -108,13 +108,15 @@
                 <br>
             {% endif %}
 
-            {% if deal.isSold == 0 %}
+            {% if deal.isSold == 0 and app.user %}
                 <a class="btn btn--primary" id='askQuestionBtn' onClick='displayForm()'>Poser une question</a>
                 {{ form_start(commentForm, {'attr': {'id': 'commentForm'}}) }}
                     <br><label>Votre question</label>
                 {{ form_widget(commentForm) }}
                     <button type="submit" class="btn btn--primary">Envoyer</button>
                 {{ form_end(commentForm) }}
+            {% else %}
+                <a class="btn btn--secondary" href="{{ path('app_security_login')}}">Connectez vous pour poser une question</a>
             {% endif %}
 
             
