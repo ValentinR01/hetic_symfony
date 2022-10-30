@@ -15,9 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Helper\ImgHelper;
 use App\Form\CommentFormType;
+use App\Form\SearchDealType;
 
 class DealController extends AbstractController
 {
@@ -41,14 +43,14 @@ class DealController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
             $deal
-            ->setDateCreation(new \DateTime())
-            ->setDatePublication(new \DateTime())
-            ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
-            ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
-            ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
-            ->setSeller($this->getUser())
-            ->setIsSold(0)
-            ->setIsPublished(1);
+                ->setDateCreation(new \DateTime())
+                ->setDatePublication(new \DateTime())
+                ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
+                ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
+                ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
+                ->setSeller($this->getUser())
+                ->setIsSold(0)
+                ->setIsPublished(1);
 
             $entityManager->persist($deal);
             $entityManager->flush();
@@ -78,14 +80,14 @@ class DealController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $deal = $form->getData();
             $deal
-            ->setDateCreation(new \DateTime())
-            ->setDatePublication(new \DateTime())
-            ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
-            ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
-            ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
-            ->setSeller($this->getUser())
-            ->setIsSold(0)
-            ->setIsPublished(1);
+                ->setDateCreation(new \DateTime())
+                ->setDatePublication(new \DateTime())
+                ->setMainPhoto($helper->uploadImg($form['MainPhoto']->getData()))
+                ->setPhoto2($helper->uploadImg($form['Photo_2']->getData()))
+                ->setPhoto3($helper->uploadImg($form['Photo_3']->getData()))
+                ->setSeller($this->getUser())
+                ->setIsSold(0)
+                ->setIsPublished(1);
 
             $entityManager->persist($deal);
             $entityManager->flush();
@@ -97,7 +99,6 @@ class DealController extends AbstractController
         return $this->render('modifyProduct.twig', [
             'dealForm' => $form->createView()
         ]);
-
     }
 
     /**
@@ -124,9 +125,9 @@ class DealController extends AbstractController
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment = $commentForm->getData();
             $comment
-            ->setUser($this->getUser())
-            ->setDeal($deal)
-            ->setDateCreation(new \DateTime());
+                ->setUser($this->getUser())
+                ->setDeal($deal)
+                ->setDateCreation(new \DateTime());
             $entityManager->persist($comment);
             $entityManager->flush();
             return $this->redirectToRoute('app_deal_show', array('id' => $deal->getId()));
@@ -187,6 +188,28 @@ class DealController extends AbstractController
     }
 
     /**
+     * @Route("/annonce", name="app_all_deals")
+     * @return Response
+     */
+    public function searchDeals(DealRepository $repository, Request $request, SessionInterface $session)
+    {
+        $deals = $repository->findAll();
+
+        $form = $this->createForm(SearchDealType::class);
+
+        $search = $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $deals = $repository->search($search->get('words')->getData());
+            $session->set('search-data', $deals);
+            return $this->redirect('search' . $request->getQueryString());
+        }
+        return $this->render('allProducts.html.twig', [
+            'deals' => $deals,
+            'form' => $form->createView()
+        ]);
+    }
+
      * @Route("/annonces/{id}/acheter", name="app_buy_deal")
      * @param Deal $deal
      * @param UserRepository $userRepository

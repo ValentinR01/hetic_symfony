@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Repository\DealRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Form\SearchDealType;
 
 class BaseController extends AbstractController
 {
@@ -13,7 +16,7 @@ class BaseController extends AbstractController
      * @Route("/", name="app_homepage")
      * @return Response
      */
-    public function index(DealRepository $repository): Response
+    public function index(DealRepository $repository, Request $request, SessionInterface $session): Response
     {
 
         $deals = $repository->findBy(
@@ -23,10 +26,19 @@ class BaseController extends AbstractController
             0
         );
 
+        $form = $this->createForm(SearchDealType::class);
 
-        #dd($deals);
+        $search = $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $deals = $repository->search($search->get('words')->getData());
+            $session->set('search-data', $deals);
+            return $this->redirect('search' . $request->getQueryString());
+        }
+
         return $this->render('index.html.twig', [
             'deals' => $deals,
+            'form' => $form->createView()
         ]);
     }
 }
