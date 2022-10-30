@@ -47,11 +47,14 @@ class AdminController extends AbstractController
         $form = $this->createForm(EditUserFormType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPseudo($form->get('Pseudo')->getData());
-            $user->setEmail($form->get('Email')->getData());
+        if ($form->isSubmitted() && $form->isValid() && $form->getData()->getPseudo() !== null
+            && $form->getData()->getEmail() !== null) {
+            $user
+                ->setPseudo($form->get('Pseudo')->getData())
+                ->setEmail($form->get('Email')->getData());
             $manager->persist($user);
             $manager->flush();
+            return $this->redirectToRoute('app_admin_users');
         }
 
         return $this->render('admin/admin_users_id_edit.html.twig', [

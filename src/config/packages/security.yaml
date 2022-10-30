@@ -18,12 +18,14 @@ security:
                 check_path: app_security_login
                 login_path: app_security_login
                 enable_csrf: true
+                always_use_default_target_path: true
             logout:
                 path: app_security_logout
                 target: app_homepage
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin$, roles: ROLE_ADMIN }
+        - { path: ^/profile$, roles: ROLE_USER }
+        - { path: ^/account$, roles: ROLE_USER }
 
     role_hierarchy:
         ROLE_ADMIN: [ROLE_USER]

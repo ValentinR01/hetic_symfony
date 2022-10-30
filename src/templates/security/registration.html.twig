@@ -7,13 +7,10 @@
 {% endblock %}
 
 {% block body %}
-    <section id="registration">
+    <section id="registration_form">
         <h1>Créez votre compte</h1>
-
         {{ form_start(form) }}
-        {{ form_row(form.Pseudo) }}
-        {{ form_row(form.Email, {'attr': {'placeholder': 'never@end.com'}}) }}
-        {{ form_row(form.Password) }}
+        {{ form_widget(form) }}
         <button type="submit" class="btn btn--primary">Créer mon compte</button>
         {{ form_end(form) }}
     </section>
